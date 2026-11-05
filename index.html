@@ -310,13 +310,14 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
   </section>
 
   <section class="card">
-    <h2><svg class="section-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 16.5 10.8-10.8a2.1 2.1 0 0 1 3 3L7 19.5 3.5 20z"/><path d="m13.5 7.5 3 3"/></svg><span>Ort, Datum und Unterschrift</span></h2>
+    <h2><svg class="section-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 16.5 10.8-10.8a2.1 2.1 0 0 1 3 3L7 19.5 3.5 20z"/><path d="m13.5 7.5 3 3"/></svg><span>Deine Erklärungen und Unterschriften</span></h2>
+    <p class="intro">Hier bestätigst du zwei voneinander unabhängige Erklärungen: deinen Antrag auf Mitgliedschaft und das SEPA-Lastschriftmandat. Deshalb benötigen wir deine Unterschrift an beiden Stellen.</p>
     <div class="grid">
       <div class="field"><label class="field-label" for="place">Ort <span class="required">*</span></label><input id="place" name="place" autocomplete="address-level2" required></div>
       <div class="field"><label class="field-label" for="date">Datum <span class="required">*</span></label><input id="date" name="date" type="date" required></div>
     </div>
     <div style="margin-top:17px">
-      <div class="signature-reason"><strong>Warum gibt es zwei Unterschriften?</strong><br>Mit dieser Unterschrift beantragst du die Mitgliedschaft. Die separate Unterschrift im vorherigen Abschnitt bestätigt ausschließlich das SEPA-Lastschriftmandat und die Ermächtigung zum Einzug des Mitgliedsbeitrags.</div>
+      <div class="signature-reason">Mit deiner Unterschrift bestätigst du den Antrag auf Mitgliedschaft. Das SEPA-Lastschriftmandat hast du bereits im vorherigen Abschnitt separat unterschrieben.</div>
       <label class="field-label">Unterschrift Antragsteller/in <span class="required">*</span></label>
       <div class="signature-wrap">
         <div class="signature-top"><strong>Bitte hier unterschreiben</strong><button class="small-btn" type="button" data-clear="memberSignature">Löschen</button></div>
@@ -550,7 +551,7 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
 
   // Fortschrittsanzeige folgt dem zuletzt erreichten Formularabschnitt.
   const progressSections=[...document.querySelectorAll("form#membershipForm > .card")].slice(0,4);
-  const progressNames=["Persönliche Angaben","Mitgliedsbeitrag","SEPA-Lastschrift","Unterschrift"];
+  const progressNames=["Persönliche Angaben","Mitgliedsbeitrag","SEPA-Lastschrift","Erklärungen"];
   const progressBar=document.getElementById("progressBar");
   const progressLabel=document.getElementById("progressLabel");
   const progressItems=[...document.querySelectorAll(".progress-steps span")];
@@ -651,7 +652,7 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
       doc.setFont("helvetica","bold");doc.text("Unterschrift Kontoinhaber/in:",left,y);y+=2;
       if(data.sepaSig){doc.addImage(data.sepaSig,"PNG",left+60,y-5,65,17);}y+=16;
     }
-    y+=2;section("Ort, Datum und Unterschrift");line("Ort, Datum:",data.place+", "+data.date);
+    y+=2;section("Erklärungen und Unterschriften");line("Ort, Datum:",data.place+", "+data.date);
     if(y>258){doc.addPage();y=18;}
     doc.setFont("helvetica","bold");doc.text("Unterschrift Antragsteller/in:",left,y);y+=2;
     if(data.memberSig){doc.addImage(data.memberSig,"PNG",left+60,y-5,65,17);}y+=17;
