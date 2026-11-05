@@ -114,6 +114,62 @@ button.secondary{border-color:#315b4d;color:#315b4d}
 
 .fixed-value{min-height:46px;display:flex;align-items:center;padding:12px 14px;border:1px solid #cbd7cf;border-radius:11px;background:#f4f8f3;color:#315b4d;font-weight:650}
 .sepa-fields{display:block}
+
+/* Überarbeitete Formularführung und visuelle Hierarchie */
+:root{--green:#315b4d;--green2:#477965;--ink:#26342e;--muted:#68766f;--line:#e2e9e4;--bg:#f7f8f5;--radius:18px}
+body{font-size:16px;line-height:1.55}
+header{padding:20px 18px 0}
+header .inner{padding-bottom:18px}
+.hero-photo{height:clamp(155px,22vw,225px)}
+.hero-photo img{object-position:center 54%}
+.hero-caption{display:none}
+.progress-shell{background:#fff;border-bottom:1px solid var(--line)}
+.progress-inner{max-width:820px;margin:auto;padding:16px 14px 13px}
+.progress-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:.9rem;margin-bottom:10px}
+.progress-heading strong{color:var(--green);font-size:1rem}
+.progress-heading span{color:var(--muted);font-size:.82rem}
+.progress-track{height:5px;background:#e9efeb;border-radius:99px;overflow:hidden}
+.progress-track span{display:block;width:20%;height:100%;background:var(--green2);border-radius:99px;transition:width .2s ease}
+.progress-steps{display:flex;justify-content:space-between;gap:6px;margin-top:8px;color:#84918a;font-size:.69rem}
+.progress-steps span.active{color:var(--green);font-weight:700}
+main{padding-top:22px}
+.card{padding:clamp(19px,4vw,28px);margin-bottom:18px;box-shadow:0 4px 18px rgba(37,67,52,.045)}
+h2{font-size:1.16rem;margin-bottom:17px;letter-spacing:-.015em}
+.intro{font-size:.96rem;line-height:1.55}
+.grid{column-gap:16px;row-gap:17px}
+label.field-label{font-size:.9rem;margin-bottom:7px}
+input,select{min-height:50px;border:1px solid #c5d2ca;border-radius:10px;padding:12px 13px;transition:border-color .15s,box-shadow .15s}
+input:focus,select:focus{border-color:#477965;box-shadow:0 0 0 3px rgba(71,121,101,.13);outline:0}
+input::placeholder{color:#9aa69f}
+.notice{padding:15px 17px;line-height:1.6;border-left-width:3px}
+.checkline{gap:13px;margin:17px 0;line-height:1.55}
+.checkline input{margin-top:2px}
+.fixed-value{background:#f4f8f5;border-color:#d7e3db}
+#contribution{font-weight:650;font-size:1.08rem;color:var(--green)}
+.signature-wrap{border:1px solid #c5d2ca;box-shadow:inset 0 1px 2px rgba(0,0,0,.025)}
+.signature-top{padding:11px 13px}
+.signature-canvas{height:155px;background:linear-gradient(#fff,#fff) padding-box}
+.small-btn{min-height:38px;padding:8px 12px}
+.actions{grid-template-columns:1fr;gap:10px}
+button.primary,button.secondary{min-height:54px;border-radius:11px}
+button.primary{box-shadow:0 3px 8px rgba(49,91,77,.16)}
+button.secondary{min-height:48px;border-color:#d0dbd4}
+.status{padding:0 2px}
+.footer{max-width:820px;padding:8px 16px 32px;line-height:1.6}
+@media(max-width:560px){
+ header{padding:15px 14px 0}
+ header .inner{padding-bottom:14px}
+ .brand-logo{flex-basis:100px}
+ .hero-photo{height:145px}
+ .progress-inner{padding:13px 14px 11px}
+ .progress-steps{font-size:.61rem}
+ .progress-heading{font-size:.86rem}
+ .card{padding:19px 16px;margin-bottom:13px}
+ .signature-canvas{height:145px}
+}
+@media(max-width:370px){.progress-steps span{font-size:.56rem}}
+@media print{.progress-shell{display:none!important}.hero-photo{height:110px}}
+
 </style>
 </head>
 <body>
@@ -133,6 +189,13 @@ button.secondary{border-color:#315b4d;color:#315b4d}
   <div class="hero-caption">Nordstadtkita · Rinteln</div>
 </div>
 </header>
+<div class="progress-shell" aria-label="Formularübersicht">
+  <div class="progress-inner">
+    <div class="progress-heading"><strong>Ihr Mitgliedsantrag</strong><span id="progressLabel">Persönliche Angaben</span></div>
+    <div class="progress-track" aria-hidden="true"><span id="progressBar"></span></div>
+    <div class="progress-steps" aria-hidden="true"><span class="active">Angaben</span><span>Beitrag</span><span>Lastschrift</span><span>Datenschutz</span><span>Unterschrift</span></div>
+  </div>
+</div>
 <main>
 <form id="membershipForm" novalidate>
   <section class="card">
@@ -172,10 +235,10 @@ button.secondary{border-color:#315b4d;color:#315b4d}
     <div class="sepa-fields" id="sepaFields">
       <div class="notice">Hinweis: Ich kann innerhalb von acht Wochen, beginnend mit dem Belastungsdatum, die Erstattung des belasteten Betrages verlangen. Es gelten dabei die mit meinem Kreditinstitut vereinbarten Bedingungen.</div>
       <div class="grid" style="margin-top:14px">
-        <div class="field full"><label class="field-label" for="iban">IBAN <span class="required">*</span></label><input id="iban" name="iban" autocomplete="off" autocapitalize="characters" placeholder="DE00 0000 0000 0000 0000 00"></div>
-        <div class="field"><label class="field-label" for="bic">BIC</label><input id="bic" name="bic" autocomplete="off" autocapitalize="characters"></div>
+        <div class="field full"><label class="field-label" for="iban">IBAN <span class="required">*</span></label><input id="iban" name="iban" autocomplete="off" autocapitalize="characters" spellcheck="false" inputmode="text" placeholder="DE00 0000 0000 0000 0000 00" aria-describedby="ibanHint" required><p class="hint" id="ibanHint">Die IBAN finden Sie beispielsweise auf Ihrer Bankkarte oder im Onlinebanking.</p></div>
+        <div class="field"><label class="field-label" for="bic">BIC</label><input id="bic" name="bic" autocomplete="off" autocapitalize="characters" spellcheck="false"></div>
         <div class="field"><label class="field-label" for="bank">Kreditinstitut</label><input id="bank" name="bank" autocomplete="off"></div>
-        <div class="field full"><label class="field-label" for="accountHolder">Kontoinhaber/in <span class="required">*</span></label><input id="accountHolder" name="accountHolder" autocomplete="name"></div>
+        <div class="field full"><label class="field-label" for="accountHolder">Kontoinhaber/in <span class="required">*</span></label><input id="accountHolder" name="accountHolder" autocomplete="name" required></div>
       </div>
       <div style="margin-top:15px">
         <label class="field-label">Unterschrift Kontoinhaber/in <span class="required">*</span></label>
@@ -353,12 +416,55 @@ button.secondary{border-color:#315b4d;color:#315b4d}
   function updateSepa(){sepaFields.classList.add("visible");ibanInput.required=true;accountHolder.required=true;}
   updateSepa();
 
+  // IBAN-Eingabe lesbar gruppieren und anhand der ISO-Prüfziffer validieren.
+  function normalizeIban(v){return v.replace(/[^a-z0-9]/gi,"").toUpperCase();}
+  function validIban(v){
+    const s=normalizeIban(v);
+    if(!/^[A-Z]{2}[0-9A-Z]{13,32}$/.test(s)) return false;
+    const rotated=s.slice(4)+s.slice(0,4);
+    let remainder=0;
+    for(const ch of rotated){
+      const digits=/[A-Z]/.test(ch)?String(ch.charCodeAt(0)-55):ch;
+      for(const digit of digits) remainder=(remainder*10+Number(digit))%97;
+    }
+    return remainder===1;
+  }
+  ibanInput.addEventListener("input",()=>{
+    const raw=normalizeIban(ibanInput.value);
+    ibanInput.value=raw.match(/.{1,4}/g)?.join(" ")||"";
+    ibanInput.setCustomValidity("");
+  });
+  ibanInput.addEventListener("blur",()=>{
+    if(ibanInput.value.trim()&&!validIban(ibanInput.value)) ibanInput.setCustomValidity("Bitte prüfen Sie die IBAN. Die Prüfziffer ist nicht korrekt.");
+    else ibanInput.setCustomValidity("");
+  });
+
+  // Fortschrittsanzeige folgt dem zuletzt erreichten Formularabschnitt.
+  const progressSections=[...document.querySelectorAll("form#membershipForm > .card")].slice(0,5);
+  const progressNames=["Persönliche Angaben","Mitgliedsbeitrag","SEPA-Lastschrift","Datenschutz","Unterschrift"];
+  const progressBar=document.getElementById("progressBar");
+  const progressLabel=document.getElementById("progressLabel");
+  const progressItems=[...document.querySelectorAll(".progress-steps span")];
+  if("IntersectionObserver" in window){
+    const observer=new IntersectionObserver(entries=>{
+      const visible=entries.filter(e=>e.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];
+      if(!visible)return;
+      const index=progressSections.indexOf(visible.target);
+      if(index<0)return;
+      progressBar.style.width=((index+1)*20)+"%";
+      progressLabel.textContent=progressNames[index];
+      progressItems.forEach((item,i)=>item.classList.toggle("active",i===index));
+    },{rootMargin:"-18% 0px -62% 0px",threshold:[0,.15,.4]});
+    progressSections.forEach(section=>observer.observe(section));
+  }
+
   function value(id){return (document.getElementById(id)?.value||"").trim();}
   function validate(){
     status.textContent="";status.classList.remove("error");
     if(!form.reportValidity()){status.textContent="Bitte füllen Sie alle Pflichtfelder korrekt aus.";status.classList.add("error");return false;}
     if(!canvases.memberSignature.hasInk()){status.textContent="Bitte unterschreiben Sie die Beitrittserklärung.";status.classList.add("error");return false;}
     if(!canvases.sepaSignature.hasInk()){status.textContent="Bitte unterschreiben Sie das SEPA-Lastschriftmandat.";status.classList.add("error");return false;}
+    if(!validIban(ibanInput.value)){ibanInput.setCustomValidity("Bitte geben Sie eine gültige IBAN mit korrekter Prüfziffer ein.");ibanInput.reportValidity();status.textContent="Bitte prüfen Sie Ihre IBAN.";status.classList.add("error");return false;}
     if(Number(value("contribution"))<18){status.textContent="Der Mindestmitgliedsbeitrag beträgt 18,00 €.";status.classList.add("error");return false;}
     return true;
   }
@@ -383,7 +489,7 @@ button.secondary{border-color:#315b4d;color:#315b4d}
     const doc=new window.jspdf.jsPDF({unit:"mm",format:"a4"});
     const left=17,right=193,width=176;let y=18;
     doc.setFont("helvetica","bold");doc.setFontSize(15);doc.text("Förderverein Nordstadtkita",left,y);y+=7;
-    doc.setFont("helvetica","normal");doc.setFontSize(9);doc.text("Der Kindertagesstätte Rinteln e.V.",left,y);y+=8;
+    doc.setFont("helvetica","normal");doc.setFontSize(9);doc.text("Förderverein der Kindertagesstätte Rinteln e.V.",left,y);y+=8;
     doc.setFont("helvetica","bold");doc.setFontSize(13);doc.text("Beitrittserklärung",left,y);y+=9;
     const section=(title)=>{if(y>265){doc.addPage();y=18;}doc.setFont("helvetica","bold");doc.setFontSize(10.5);doc.setTextColor(23,61,53);doc.text(title,left,y);y+=6;doc.setTextColor(20,30,26);doc.setFont("helvetica","normal");doc.setFontSize(9.5);};
     const line=(label,val)=>{doc.setFont("helvetica","bold");doc.text(label,left,y);doc.setFont("helvetica","normal");doc.text(String(val||"—"),left+43,y);y+=6;};
