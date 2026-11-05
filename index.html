@@ -195,7 +195,7 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
 
 
 /* Präzises Formularfeedback, barrierearme Zustände und reduzierte Bewegung */
-.field-error{display:block;color:var(--danger);font-size:.82rem;line-height:1.4;margin:6px 2px 0}
+.field-error{display:block;color:var(--danger);font-size:.82rem;line-height:1.4;margin:6px 2px 0}.checkline{flex-wrap:wrap}.checkline .field-error{flex-basis:100%;margin-left:35px}
 input[aria-invalid="true"],select[aria-invalid="true"]{border-color:var(--danger);box-shadow:0 0 0 3px rgba(165,40,40,.09)}
 input.is-valid,select.is-valid{border-color:#6b987a}
 .validation-summary{display:none;margin:0 0 14px;padding:13px 15px;border:1px solid #e7caca;border-left:4px solid var(--danger);border-radius:10px;background:#fff8f7;color:#762525}
@@ -586,7 +586,7 @@ input.is-valid,select.is-valid{border-color:#6b987a}
     field.classList.remove("is-valid");
     const old=field.parentElement.querySelector(".field-error");
     if(old)old.remove();
-    field.removeAttribute("aria-describedby");
+    const described=(field.getAttribute("aria-describedby")||"").split(/\\s+/).filter(id=>id&&id!==field.id+"Error");\n    if(described.length)field.setAttribute("aria-describedby",described.join(" "));else field.removeAttribute("aria-describedby");
   }
   function setFieldError(field,message){
     clearFieldError(field);
