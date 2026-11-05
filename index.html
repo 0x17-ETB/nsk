@@ -194,10 +194,6 @@ button.secondary{border-color:#315b4d;color:#315b4d}
       <input type="checkbox" id="privacyAck" required>
       <label for="privacyAck">Ich habe die Hinweise zur Verarbeitung meiner Daten zur Kenntnis genommen. <span class="required">*</span></label>
     </div>
-    <div class="checkline">
-      <input type="checkbox" id="newsletter">
-      <label for="newsletter">Ich möchte per E-Mail über Neuigkeiten und Termine des Vereins informiert werden. Diese Einwilligung ist freiwillig und kann jederzeit widerrufen werden.</label>
-    </div>
   </section>
 
   <section class="card">
@@ -372,7 +368,7 @@ button.secondary{border-color:#315b4d;color:#315b4d}
       contribution:Number(value("contribution")).toLocaleString("de-DE",{minimumFractionDigits:2,maximumFractionDigits:2})+" €",
       payment:"SEPA-Lastschrift",
       sepa:true,iban:value("iban").replace(/\s+/g,"").toUpperCase(),bic:value("bic"),bank:value("bank"),accountHolder:value("accountHolder"),
-      privacy:document.getElementById("privacyAck").checked,newsletter:document.getElementById("newsletter").checked,
+      privacy:document.getElementById("privacyAck").checked,
       place:value("place"),date:new Date(value("date")+"T12:00:00").toLocaleDateString("de-DE"),
       memberSig:canvases.memberSignature.data(),sepaSig:canvases.sepaSignature.data()
     };
@@ -407,7 +403,6 @@ button.secondary{border-color:#315b4d;color:#315b4d}
     y+=2;section("4. Datenschutz und Information");
     y=addWrapped(doc,"Die personenbezogenen Daten werden zur Mitgliederverwaltung und Durchführung der Mitgliedschaft unter Beachtung der geltenden Datenschutzbestimmungen verarbeitet.",left,y,width,4.7);
     line("Datenschutzhinweis:",data.privacy?"Zur Kenntnis genommen":"—");
-    line("E-Mail-Informationen:",data.newsletter?"Einwilligung erteilt":"Keine Einwilligung");
     y+=2;section("5. Ort, Datum und Unterschrift");line("Ort, Datum:",data.place+", "+data.date);
     doc.setFont("helvetica","bold");doc.text("Unterschrift Antragsteller/in:",left,y);y+=2;
     if(data.memberSig){doc.addImage(data.memberSig,"PNG",left+60,y-5,65,17);}y+=17;
