@@ -557,7 +557,16 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
     doc.setFont("helvetica","normal");doc.setFontSize(9);doc.text("Förderverein der Kindertagesstätte Rinteln e.V.",left,y);y+=8;
     doc.setFont("helvetica","bold");doc.setFontSize(13);doc.text("Beitrittserklärung",left,y);y+=9;
     const section=(title)=>{if(y>265){doc.addPage();y=18;}doc.setFont("helvetica","bold");doc.setFontSize(10.5);doc.setTextColor(23,61,53);doc.text(title,left,y);y+=6;doc.setTextColor(20,30,26);doc.setFont("helvetica","normal");doc.setFontSize(9.5);};
-    const line=(label,val)=>{doc.setFont("helvetica","bold");doc.text(label,left,y);doc.setFont("helvetica","normal");doc.text(String(val||"—"),left+43,y);y+=6;};
+    const line=(label,val)=>{
+      if(y>278){doc.addPage();y=18;}
+      doc.setFont("helvetica","bold");doc.text(label,left,y);
+      doc.setFont("helvetica","normal");
+      const lines=doc.splitTextToSize(String(val||"—"),130);
+      lines.forEach(textLine=>{
+        if(y>278){doc.addPage();y=18;}
+        doc.text(textLine,left+43,y);y+=6;
+      });
+    };
     section("1. Persönliche Angaben");
     line("Name:",data.surname);line("Vorname:",data.givenName);line("Straße / Nr.:",data.street);line("PLZ / Ort:",data.postal+" "+data.city);line("E-Mail:",data.email);
     y+=2;section("2. Mitgliedsbeitrag");line("Jährlicher Beitrag:",data.contribution);line("Zahlungsart:",data.payment);
@@ -568,6 +577,7 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
       y+=2;y=addWrapped(doc,"Ich ermächtige den Förderverein der Kindertagesstätte Rinteln e.V., den von mir zu entrichtenden Jahresbeitrag jährlich bei Fälligkeit von meinem Konto mittels Lastschrift einzuziehen. Zugleich weise ich mein Kreditinstitut an, die vom Verein auf mein Konto gezogenen Lastschriften einzulösen.",left,y,width,4.7);
       y+=1;y=addWrapped(doc,"Hinweis: Du kannst innerhalb von acht Wochen ab dem Belastungsdatum die Erstattung des belasteten Betrags verlangen. Es gelten dabei die mit meinem Kreditinstitut vereinbarten Bedingungen.",left,y,width,4.7);
       y+=2;line("IBAN:",data.iban);line("BIC:",data.bic);line("Kreditinstitut:",data.bank);line("Kontoinhaber/in:",data.accountHolder);
+      if(y>258){doc.addPage();y=18;}
       doc.setFont("helvetica","bold");doc.text("Unterschrift Kontoinhaber/in:",left,y);y+=2;
       if(data.sepaSig){doc.addImage(data.sepaSig,"PNG",left+60,y-5,65,17);}y+=16;
     }
@@ -577,6 +587,7 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
     y+=1;y=addWrapped(doc,"Erst wenn du das PDF aktiv über die Teilen-Funktion versendest, gibst du die darin enthaltenen Daten an die ausgewählten Empfänger bzw. Dienste weiter. Beim Drucken oder Speichern entscheidest du selbst über den Ablageort.",left,y,width,4.7);
     line("Datenschutzhinweis:",data.privacy?"Zur Kenntnis genommen":"—");
     y+=2;section("5. Ort, Datum und Unterschrift");line("Ort, Datum:",data.place+", "+data.date);
+    if(y>258){doc.addPage();y=18;}
     doc.setFont("helvetica","bold");doc.text("Unterschrift Antragsteller/in:",left,y);y+=2;
     if(data.memberSig){doc.addImage(data.memberSig,"PNG",left+60,y-5,65,17);}y+=17;
     doc.setFontSize(8);doc.setFont("helvetica","normal");doc.text("Förderverein der Kindertagesstätte Rinteln e.V.",left,Math.min(y,285));
