@@ -105,6 +105,13 @@ button.secondary{border-color:#315b4d;color:#315b4d}
 @media(max-width:360px){header .inner{align-items:flex-start}.brand-logo{flex-basis:94px}}
 @media print{.brand-stripe{display:none}header{border-bottom:2px solid #315b4d}}
 
+
+.hero-photo{position:relative;max-width:100%;height:clamp(170px,28vw,290px);overflow:hidden;background:#e8eee9}
+.hero-photo img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 52%}
+.hero-caption{position:absolute;left:max(18px,calc((100% - 820px)/2));bottom:16px;padding:8px 14px;border-radius:9px;background:rgba(255,255,255,.92);color:#315b4d;font-size:.88rem;font-weight:650;letter-spacing:.02em;box-shadow:0 2px 12px rgba(0,0,0,.12)}
+@media(max-width:560px){.hero-photo{height:170px}.hero-caption{left:14px;bottom:12px;font-size:.8rem}}
+@media print{.hero-photo{height:125px}}
+
 </style>
 </head>
 <body>
@@ -118,7 +125,12 @@ button.secondary{border-color:#315b4d;color:#315b4d}
     <h1>Beitrittserklärung</h1>
     <p>Schön, dass Sie unsere Kita unterstützen möchten.</p>
   </div>
-</div></header>
+</div>
+<div class="hero-photo" role="img" aria-label="Außenansicht der Nordstadtkita in Rinteln">
+  <img src="https://www.rinteln.de/assets/1-Relaunch-2019/Leben-in-Rinteln/Kinder-und-Jugend/Kitas-staedtisch/_resampled/CroppedFocusedImageWzU3MCwzODAsIngiLDBd/Nordstadtkita-Rinteln-4.jpg" alt="Außenansicht der Nordstadtkita in Rinteln">
+  <div class="hero-caption">Nordstadtkita · Rinteln</div>
+</div>
+</header>
 <main>
 <form id="membershipForm" novalidate>
   <section class="card">
