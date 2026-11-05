@@ -112,6 +112,8 @@ button.secondary{border-color:#315b4d;color:#315b4d}
 @media(max-width:560px){.hero-photo{height:170px}.hero-caption{left:14px;bottom:12px;font-size:.8rem}}
 @media print{.hero-photo{height:125px}}
 
+.fixed-value{min-height:46px;display:flex;align-items:center;padding:12px 14px;border:1px solid #cbd7cf;border-radius:11px;background:#f4f8f3;color:#315b4d;font-weight:650}
+.sepa-fields{display:block}
 </style>
 </head>
 <body>
@@ -150,21 +152,21 @@ button.secondary{border-color:#315b4d;color:#315b4d}
     <h2>2. Mitgliedsbeitrag</h2>
     <div class="grid">
       <div class="field"><label class="field-label" for="contribution">Jährlicher Mitgliedsbeitrag in Euro <span class="required">*</span></label><input id="contribution" name="contribution" type="number" min="18" step="0.01" inputmode="decimal" value="18.00" required></div>
-      <div class="field"><label class="field-label" for="payment">Zahlungsart</label><select id="payment" name="payment"><option value="Überweisung">Überweisung</option><option value="SEPA-Lastschrift">SEPA-Lastschrift</option></select></div>
+      <div class="field"><label class="field-label">Zahlungsart</label><div class="fixed-value">Ausschließlich SEPA-Lastschrift</div></div>
     </div>
     <p class="hint">Der Mindestbeitrag beträgt 18,00 € pro Jahr.</p>
   </section>
 
   <section class="card" id="sepaSection">
     <h2>3. SEPA-Lastschriftmandat</h2>
-    <p class="intro">Nur ausfüllen, wenn der Mitgliedsbeitrag per SEPA-Lastschrift eingezogen werden soll.</p>
+    <p class="intro">Der Mitgliedsbeitrag wird ausschließlich per SEPA-Lastschrift eingezogen. Bitte erteilen Sie hierzu das nachfolgende Lastschriftmandat und geben Sie Ihre Kontodaten an.</p>
     <div class="notice">
       <strong>Förderverein der Kindertagesstätte Rinteln e.V.</strong><br>
       Gläubiger-Identifikationsnummer: <strong>DE92ZZZ00001253396</strong><br>
       Mandatsreferenz: wird separat mitgeteilt (Mitgliedsnummer)
     </div>
     <div class="checkline">
-      <input type="checkbox" id="sepaConsent" name="sepaConsent">
+      <input type="checkbox" id="sepaConsent" name="sepaConsent" required>
       <label for="sepaConsent">Ich erteile das nachfolgende SEPA-Lastschriftmandat und ermächtige den Förderverein der Kindertagesstätte Rinteln e.V., den von mir zu entrichtenden Jahresbeitrag jährlich bei Fälligkeit von meinem Konto mittels Lastschrift einzuziehen. Zugleich weise ich mein Kreditinstitut an, die vom Förderverein auf mein Konto gezogenen Lastschriften einzulösen.</label>
     </div>
     <div class="sepa-fields" id="sepaFields">
@@ -233,7 +235,6 @@ button.secondary{border-color:#315b4d;color:#315b4d}
   "use strict";
   const form = document.getElementById("membershipForm");
   const status = document.getElementById("status");
-  const payment = document.getElementById("payment");
   const sepaConsent = document.getElementById("sepaConsent");
   const sepaFields = document.getElementById("sepaFields");
   const ibanInput = document.getElementById("iban");
@@ -353,9 +354,7 @@ button.secondary{border-color:#315b4d;color:#315b4d}
     resizeTimer = setTimeout(() => Object.values(canvases).forEach(c => c.resize(true)), 180);
   });
 
-  payment.addEventListener("change",()=>{ if(payment.value==="SEPA-Lastschrift"){sepaConsent.checked=true;} else {sepaConsent.checked=false;} updateSepa(); });
-  sepaConsent.addEventListener("change",()=>{if(sepaConsent.checked)payment.value="SEPA-Lastschrift";else payment.value="Überweisung";updateSepa();});
-  function updateSepa(){sepaFields.classList.toggle("visible",sepaConsent.checked);ibanInput.required=sepaConsent.checked;accountHolder.required=sepaConsent.checked;}
+  function updateSepa(){sepaFields.classList.add("visible");ibanInput.required=true;accountHolder.required=true;}
   updateSepa();
 
   function value(id){return (document.getElementById(id)?.value||"").trim();}
@@ -363,7 +362,7 @@ button.secondary{border-color:#315b4d;color:#315b4d}
     status.textContent="";status.classList.remove("error");
     if(!form.reportValidity()){status.textContent="Bitte füllen Sie alle Pflichtfelder korrekt aus.";status.classList.add("error");return false;}
     if(!canvases.memberSignature.hasInk()){status.textContent="Bitte unterschreiben Sie die Beitrittserklärung.";status.classList.add("error");return false;}
-    if(sepaConsent.checked && !canvases.sepaSignature.hasInk()){status.textContent="Bitte unterschreiben Sie auch das SEPA-Lastschriftmandat.";status.classList.add("error");return false;}
+    if(!canvases.sepaSignature.hasInk()){status.textContent="Bitte unterschreiben Sie das SEPA-Lastschriftmandat.";status.classList.add("error");return false;}
     if(Number(value("contribution"))<18){status.textContent="Der Mindestmitgliedsbeitrag beträgt 18,00 €.";status.classList.add("error");return false;}
     return true;
   }
@@ -371,8 +370,8 @@ button.secondary{border-color:#315b4d;color:#315b4d}
     return {
       surname:value("surname"),givenName:value("givenName"),street:value("street"),postal:value("postal"),city:value("city"),email:value("email"),
       contribution:Number(value("contribution")).toLocaleString("de-DE",{minimumFractionDigits:2,maximumFractionDigits:2})+" €",
-      payment:sepaConsent.checked?"SEPA-Lastschrift":"Überweisung",
-      sepa:sepaConsent.checked,iban:value("iban").replace(/\s+/g,"").toUpperCase(),bic:value("bic"),bank:value("bank"),accountHolder:value("accountHolder"),
+      payment:"SEPA-Lastschrift",
+      sepa:true,iban:value("iban").replace(/\s+/g,"").toUpperCase(),bic:value("bic"),bank:value("bank"),accountHolder:value("accountHolder"),
       privacy:document.getElementById("privacyAck").checked,newsletter:document.getElementById("newsletter").checked,
       place:value("place"),date:new Date(value("date")+"T12:00:00").toLocaleDateString("de-DE"),
       memberSig:canvases.memberSignature.data(),sepaSig:canvases.sepaSignature.data()
@@ -404,7 +403,7 @@ button.secondary{border-color:#315b4d;color:#315b4d}
       y+=2;line("IBAN:",data.iban);line("BIC:",data.bic);line("Kreditinstitut:",data.bank);line("Kontoinhaber/in:",data.accountHolder);
       doc.setFont("helvetica","bold");doc.text("Unterschrift Kontoinhaber/in:",left,y);y+=2;
       if(data.sepaSig){doc.addImage(data.sepaSig,"PNG",left+60,y-5,65,17);}y+=16;
-    } else {y+=2;section("3. SEPA-Lastschriftmandat");y=addWrapped(doc,"Kein SEPA-Lastschriftmandat erteilt. Die Zahlung erfolgt per Überweisung.",left,y,width,5);}
+    }
     y+=2;section("4. Datenschutz und Information");
     y=addWrapped(doc,"Die personenbezogenen Daten werden zur Mitgliederverwaltung und Durchführung der Mitgliedschaft unter Beachtung der geltenden Datenschutzbestimmungen verarbeitet.",left,y,width,4.7);
     line("Datenschutzhinweis:",data.privacy?"Zur Kenntnis genommen":"—");
