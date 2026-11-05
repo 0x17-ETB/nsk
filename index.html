@@ -270,13 +270,13 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
     <h2><svg class="section-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M7 15h4"/></svg><span>SEPA-Lastschriftmandat</span></h2>
     <p class="intro">Der Mitgliedsbeitrag wird ausschließlich per SEPA-Lastschrift eingezogen. Bitte erteile dazu das folgende Lastschriftmandat und gib deine Kontodaten an.</p>
     <div class="notice">
-      <strong>Förderverein der Kindertagesstätte Rinteln e.V.</strong><br>
+      <strong>Förderverein der Kindertagesstätte Rinteln e. V.</strong><br>
       Gläubiger-Identifikationsnummer: <strong>DE92ZZZ00001253396</strong><br>
       Mandatsreferenz: wird separat mitgeteilt (Mitgliedsnummer)
     </div>
     <div class="checkline">
       <input type="checkbox" id="sepaConsent" name="sepaConsent" required>
-      <label for="sepaConsent">Ich erteile das nachfolgende SEPA-Lastschriftmandat und ermächtige den Förderverein der Kindertagesstätte Rinteln e.V., den von mir zu entrichtenden Jahresbeitrag jährlich bei Fälligkeit von meinem Konto mittels Lastschrift einzuziehen. Zugleich weise ich mein Kreditinstitut an, die vom Förderverein auf mein Konto gezogenen Lastschriften einzulösen.</label>
+      <label for="sepaConsent">Ich erteile das nachfolgende SEPA-Lastschriftmandat und ermächtige den Förderverein der Kindertagesstätte Rinteln e. V., den von mir zu entrichtenden Jahresbeitrag jährlich bei Fälligkeit von meinem Konto mittels Lastschrift einzuziehen. Zugleich weise ich mein Kreditinstitut an, die vom Förderverein auf mein Konto gezogenen Lastschriften einzulösen.</label>
     </div>
     <div class="sepa-fields" id="sepaFields">
       <div class="notice">Hinweis: Du kannst innerhalb von acht Wochen ab dem Belastungsdatum die Erstattung des belasteten Betrags verlangen. Es gelten dabei die mit deinem Kreditinstitut vereinbarten Bedingungen.</div>
@@ -340,7 +340,7 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
     <p class="hint">Beim Aufruf der Website werden technisch erforderliche Verbindungsdaten durch den Hosting-Anbieter verarbeitet. Einzelheiten dazu findest du in der Datenschutzerklärung.</p>
   </section>
 </main>
-<div class="footer">Förderverein der Kindertagesstätte Rinteln e.V. · <a href="./datenschutz.html">Datenschutzerklärung</a> · Bitte prüfe deine Angaben vor dem Erstellen des PDFs. <span class="required">* Pflichtfelder</span></div>
+<div class="footer">Förderverein der Kindertagesstätte Rinteln e. V. · <a href="./datenschutz.html">Datenschutzerklärung</a> · Bitte prüfe deine Angaben vor dem Erstellen des PDFs. <span class="required">* Pflichtfelder</span></div>
 
 <script src="./assets/jspdf.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
@@ -591,8 +591,8 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
     if(!window.jspdf?.jsPDF) throw new Error("Die lokal bereitgestellte PDF-Bibliothek konnte nicht geladen werden. Bitte lade die Seite erneut oder nutze „Drucken / PDF speichern“.");
     const doc=new window.jspdf.jsPDF({unit:"mm",format:"a4"});
     const left=17,right=193,width=176;let y=18;
-    doc.setFont("helvetica","bold");doc.setFontSize(15);doc.text("Förderverein Nordstadtkita",left,y);y+=7;
-    doc.setFont("helvetica","normal");doc.setFontSize(9);doc.text("Förderverein der Kindertagesstätte Rinteln e.V.",left,y);y+=8;
+    doc.setFont("helvetica","bold");doc.setFontSize(15);doc.text("Förderverein der Kindertagesstätte Rinteln e. V.",left,y);y+=7;
+    doc.setFont("helvetica","normal");doc.setFontSize(9);doc.text("Förderverein der Kindertagesstätte Rinteln e. V.",left,y);y+=8;
     doc.setFont("helvetica","bold");doc.setFontSize(13);doc.text("Beitrittserklärung",left,y);y+=9;
     const section=(title)=>{if(y>265){doc.addPage();y=18;}doc.setFont("helvetica","bold");doc.setFontSize(10.5);doc.setTextColor(23,61,53);doc.text(title,left,y);y+=6;doc.setTextColor(20,30,26);doc.setFont("helvetica","normal");doc.setFontSize(9.5);};
     const line=(label,val)=>{
@@ -612,7 +612,7 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
       y+=2;section("SEPA-Lastschriftmandat");
       y=addWrapped(doc,"Gläubiger-Identifikationsnummer: DE92ZZZ00001253396",left,y,width,5);
       y=addWrapped(doc,"Mandatsreferenz: wird separat mitgeteilt (Mitgliedsnummer)",left,y,width,5);
-      y+=2;y=addWrapped(doc,"Ich ermächtige den Förderverein der Kindertagesstätte Rinteln e.V., den von mir zu entrichtenden Jahresbeitrag jährlich bei Fälligkeit von meinem Konto mittels Lastschrift einzuziehen. Zugleich weise ich mein Kreditinstitut an, die vom Verein auf mein Konto gezogenen Lastschriften einzulösen.",left,y,width,4.7);
+      y+=2;y=addWrapped(doc,"Ich ermächtige den Förderverein der Kindertagesstätte Rinteln e. V., den von mir zu entrichtenden Jahresbeitrag jährlich bei Fälligkeit von meinem Konto mittels Lastschrift einzuziehen. Zugleich weise ich mein Kreditinstitut an, die vom Verein auf mein Konto gezogenen Lastschriften einzulösen.",left,y,width,4.7);
       y+=1;y=addWrapped(doc,"Hinweis: Du kannst innerhalb von acht Wochen ab dem Belastungsdatum die Erstattung des belasteten Betrags verlangen. Es gelten dabei die mit deinem Kreditinstitut vereinbarten Bedingungen.",left,y,width,4.7);
       y+=2;line("IBAN:",data.iban);line("BIC:",data.bic);line("Kreditinstitut:",data.bank);line("Kontoinhaber/in:",data.accountHolder);
       if(y>258){doc.addPage();y=18;}
@@ -623,7 +623,7 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
     if(y>258){doc.addPage();y=18;}
     doc.setFont("helvetica","bold");doc.text("Unterschrift Antragsteller/in:",left,y);y+=2;
     if(data.memberSig){doc.addImage(data.memberSig,"PNG",left+60,y-5,65,17);}y+=17;
-    doc.setFontSize(8);doc.setFont("helvetica","normal");doc.text("Förderverein der Kindertagesstätte Rinteln e.V.",left,Math.min(y,285));
+    doc.setFontSize(8);doc.setFont("helvetica","normal");doc.text("Förderverein der Kindertagesstätte Rinteln e. V.",left,Math.min(y,285));
     return doc;
   }
   async function sharePdf(){
@@ -639,7 +639,7 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
       const doc=createPdf(data);
       const blob=doc.output("blob");
       const file=new File([blob],"Beitrittserklaerung.pdf",{type:"application/pdf"});
-      const mailSubject="Beitrittserklärung Förderverein Nordstadtkita";
+      const mailSubject="Beitrittserklärung Förderverein der Kindertagesstätte Rinteln e. V.";
       const mailBody="Guten Tag,\n\nanbei sende ich meine ausgefüllte und unterschriebene Beitrittserklärung.\n\nMit freundlichen Grüßen";
       fallbackLink.href="mailto:nordstadtkita@rinteln.de?subject="+encodeURIComponent(mailSubject)+"&body="+encodeURIComponent(mailBody);
       if(navigator.share && navigator.canShare && navigator.canShare({files:[file]})){
