@@ -193,26 +193,6 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
 @media(max-width:370px){.progress-steps span{font-size:.56rem}}
 @media print{.progress-shell{display:none!important}.hero-photo{height:110px}}
 
-
-/* Präzises Formularfeedback, barrierearme Zustände und reduzierte Bewegung */
-.field-error{display:block;color:var(--danger);font-size:.82rem;line-height:1.4;margin:6px 2px 0}.checkline{flex-wrap:wrap}.checkline .field-error{flex-basis:100%;margin-left:35px}
-input[aria-invalid="true"],select[aria-invalid="true"]{border-color:var(--danger);box-shadow:0 0 0 3px rgba(165,40,40,.09)}
-input.is-valid,select.is-valid{border-color:#6b987a}
-.review-panel{margin:0 0 15px;padding:15px 16px;background:#f4f8f5;border:1px solid #dce8df;border-radius:12px}.review-panel h3{margin:0 0 9px;color:var(--green);font-size:1rem}.review-panel ul{margin:0;padding-left:19px}.review-panel li{margin:4px 0;font-size:.9rem;overflow-wrap:anywhere}.validation-summary{display:none;margin:0 0 14px;padding:13px 15px;border:1px solid #e7caca;border-left:4px solid var(--danger);border-radius:10px;background:#fff8f7;color:#762525}
-.validation-summary.visible{display:block}
-.validation-summary strong{display:block;margin-bottom:4px}
-.progress-track span{transition:width .25s ease}
-.progress-steps span{position:relative;white-space:nowrap}
-.progress-steps span.complete{color:#477965}
-.progress-steps span.complete:before{content:"✓ ";font-weight:800}
-.progress-steps span[aria-current="step"]{color:var(--green);font-weight:750}
-.signature-canvas:focus-visible{outline:3px solid #8db9a0;outline-offset:-3px}
-@media(prefers-reduced-motion:reduce){
- html{scroll-behavior:auto}
- *,*::before,*::after{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important}
- .hero-photo{transition:none}
-}
-
 </style>
 </head>
 <body>
@@ -232,8 +212,8 @@ input.is-valid,select.is-valid{border-color:#6b987a}
 <div class="progress-shell" aria-label="Formularübersicht">
   <div class="progress-inner">
     <div class="progress-heading"><strong>Dein Mitgliedsantrag</strong><span id="progressLabel">Persönliche Angaben</span></div>
-    <div class="progress-track" role="progressbar" aria-label="Vollständigkeit des Formulars" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progressTrack"><span id="progressBar"></span></div>
-    <div class="progress-steps"><span aria-current="step">Angaben</span><span>Beitrag</span><span>Lastschrift</span><span>Datenschutz</span><span>Unterschrift</span></div>
+    <div class="progress-track" aria-hidden="true"><span id="progressBar"></span></div>
+    <div class="progress-steps" aria-hidden="true"><span class="active">Angaben</span><span>Beitrag</span><span>Lastschrift</span><span>Datenschutz</span><span>Unterschrift</span></div>
   </div>
 </div>
 </div>
@@ -243,7 +223,6 @@ input.is-valid,select.is-valid{border-color:#6b987a}
 </div>
 <main>
 <form id="membershipForm" novalidate>
-  <div class="validation-summary" id="validationSummary" role="alert" tabindex="-1"><strong>Bitte prüfe deine Angaben.</strong><span id="validationSummaryText">Einige Pflichtangaben fehlen oder sind nicht korrekt.</span></div>
     <div class="purpose-box">Mit den Mitgliedsbeiträgen und Spenden unterstützt der Förderverein zusätzliche Anschaffungen, Angebote und besondere Aktionen für die Kinder der Nordstadtkita – und bereichert so ihren Kita-Alltag.<br><span class="form-time">In etwa 3 Minuten ausgefüllt · Unterschrift direkt auf dem Bildschirm</span></div>
   <section class="card">
     <h2>1. Persönliche Angaben</h2>
@@ -518,7 +497,6 @@ input.is-valid,select.is-valid{border-color:#6b987a}
     const raw=normalizeIban(ibanInput.value);
     ibanInput.value=raw.match(/.{1,4}/g)?.join(" ")||"";
     ibanInput.setCustomValidity("");
-    if(ibanInput.hasAttribute("aria-invalid")){clearFieldError(ibanInput);}
   });
   ibanInput.addEventListener("blur",()=>{
     if(ibanInput.value.trim()&&!validIban(ibanInput.value)) ibanInput.setCustomValidity("Bitte prüfe deine IBAN. Die Prüfziffer ist nicht korrekt.");
@@ -538,114 +516,46 @@ input.is-valid,select.is-valid{border-color:#6b987a}
   },{passive:true});
   updateHeroFade();
 
-  // Fortschritt wird anhand tatsächlich vollständiger Abschnitte berechnet,
-  // während die Abschnittsbezeichnung weiterhin der aktuellen Position folgt.
+  // Fortschrittsanzeige folgt dem zuletzt erreichten Formularabschnitt.
   const progressSections=[...document.querySelectorAll("form#membershipForm > .card")].slice(0,5);
   const progressNames=["Persönliche Angaben","Mitgliedsbeitrag","SEPA-Lastschrift","Datenschutz","Unterschrift"];
   const progressBar=document.getElementById("progressBar");
-  const progressTrack=document.getElementById("progressTrack");
   const progressLabel=document.getElementById("progressLabel");
   const progressItems=[...document.querySelectorAll(".progress-steps span")];
-  const sectionComplete=[
-    ()=>["givenName","surname","street","postal","city","email"].every(id=>{const el=document.getElementById(id);return el.value.trim()!==""&&el.checkValidity();}),
-    ()=>{const el=contributionInput;return el.value.trim()!==""&&el.checkValidity()&&Number(el.value)>=18;},
-    ()=>sepaConsent.checked&&validIban(ibanInput.value)&&accountHolder.value.trim()!==""&&canvases.sepaSignature.hasInk(),
-    ()=>document.getElementById("privacyAck").checked,
-    ()=>placeInput.value.trim()!==""&&dateInput.value!==""&&canvases.memberSignature.hasInk()
-  ];
+  // Ein fester Bezugspunkt unterhalb des Sticky-Headers verhindert wechselnde
+  // IntersectionObserver-Treffer und damit Flackern an Abschnittsgrenzen.
   let progressTick=false;
   function updateProgress(){
     const stickyTop=document.getElementById("stickyTop");
     const triggerY=(stickyTop?.getBoundingClientRect().height||0)+36;
     let activeIndex=0;
-    progressSections.forEach((section,index)=>{if(section.getBoundingClientRect().top<=triggerY)activeIndex=index;});
-    const completed=sectionComplete.filter(check=>check()).length;
-    const percent=Math.round(completed/5*100);
-    progressBar.style.width=percent+"%";
-    progressTrack.setAttribute("aria-valuenow",String(percent));
-    progressLabel.textContent=progressNames[activeIndex];
-    progressItems.forEach((item,index)=>{
-      item.classList.toggle("complete",sectionComplete[index]());
-      if(index===activeIndex)item.setAttribute("aria-current","step");else item.removeAttribute("aria-current");
+    progressSections.forEach((section,index)=>{
+      if(section.getBoundingClientRect().top<=triggerY) activeIndex=index;
     });
+    progressBar.style.width=((activeIndex+1)*20)+"%";
+    progressLabel.textContent=progressNames[activeIndex];
+    progressItems.forEach((item,index)=>item.classList.toggle("active",index===activeIndex));
     progressTick=false;
   }
-  function scheduleProgressUpdate(){if(!progressTick){window.requestAnimationFrame(updateProgress);progressTick=true;}}
+  function scheduleProgressUpdate(){
+    if(!progressTick){
+      window.requestAnimationFrame(updateProgress);
+      progressTick=true;
+    }
+  }
   window.addEventListener("scroll",scheduleProgressUpdate,{passive:true});
   window.addEventListener("resize",scheduleProgressUpdate);
   window.addEventListener("load",scheduleProgressUpdate);
-  form.addEventListener("input",scheduleProgressUpdate);
-  form.addEventListener("change",scheduleProgressUpdate);
   updateProgress();
 
   function value(id){return (document.getElementById(id)?.value||"").trim();}
-  const validationSummary=document.getElementById("validationSummary");
-  const validationSummaryText=document.getElementById("validationSummaryText");
-  function clearFieldError(field){
-    field.removeAttribute("aria-invalid");
-    field.classList.remove("is-valid");
-    const old=field.parentElement.querySelector(".field-error");
-    if(old)old.remove();
-    const described=(field.getAttribute("aria-describedby")||"").split(/\\s+/).filter(id=>id&&id!==field.id+"Error");\n    if(described.length)field.setAttribute("aria-describedby",described.join(" "));else field.removeAttribute("aria-describedby");
-  }
-  function setFieldError(field,message){
-    clearFieldError(field);
-    field.setAttribute("aria-invalid","true");
-    const error=document.createElement("span");
-    error.className="field-error";
-    error.id=field.id+"Error";
-    error.textContent=message;
-    field.insertAdjacentElement("afterend",error);
-    const hint=field.getAttribute("data-hint-id");
-    field.setAttribute("aria-describedby",[hint,error.id].filter(Boolean).join(" "));
-  }
-  function fieldMessage(field){
-    if(field.validity.valueMissing)return "Bitte fülle dieses Pflichtfeld aus.";
-    if(field.id==="postal"&&field.validity.patternMismatch)return "Bitte gib eine fünfstellige Postleitzahl ein.";
-    if(field.id==="email"&&field.validity.typeMismatch)return "Bitte gib eine gültige E-Mail-Adresse ein.";
-    if(field.id==="contribution"&&(field.validity.rangeUnderflow||Number(field.value)<18))return "Der Mindestbeitrag beträgt 18,00 € pro Jahr.";
-    if(field.id==="iban"&&!validIban(field.value))return "Bitte prüfe die IBAN. Die Prüfziffer ist nicht korrekt.";
-    return field.validationMessage||"Bitte prüfe deine Eingabe.";
-  }
-  const validatedFields=[...form.querySelectorAll("input[required]")];
-  validatedFields.forEach(field=>{
-    if(field.id==="iban")field.dataset.hintId="ibanHint";
-    field.addEventListener("blur",()=>{
-      if(!field.value.trim()&& !field.required)return;
-      if(field.id==="iban"&&!field.value.trim())return;
-      if(!field.checkValidity()||(field.id==="iban"&&!validIban(field.value)))setFieldError(field,fieldMessage(field));
-      else{clearFieldError(field);field.classList.add("is-valid");}
-    });
-    field.addEventListener("input",()=>{
-      if(field.hasAttribute("aria-invalid")&&(field.checkValidity()&&(field.id!=="iban"||validIban(field.value)))){
-        clearFieldError(field);field.classList.add("is-valid");
-      }
-      validationSummary.classList.remove("visible");
-    });
-  });
   function validate(){
     status.textContent="";status.classList.remove("error");
-    validationSummary.classList.remove("visible");
-    const invalid=[];
-    validatedFields.forEach(field=>{
-      const bad=!field.checkValidity()||(field.id==="iban"&&!validIban(field.value));
-      if(bad){setFieldError(field,fieldMessage(field));invalid.push(field);}
-      else{clearFieldError(field);field.classList.add("is-valid");}
-    });
-    const signatureErrors=[];
-    if(!canvases.sepaSignature.hasInk())signatureErrors.push("Unterschrift für das SEPA-Lastschriftmandat fehlt.");
-    if(!canvases.memberSignature.hasInk())signatureErrors.push("Unterschrift unter dem Mitgliedsantrag fehlt.");
-    if(invalid.length||signatureErrors.length){
-      validationSummaryText.textContent=[invalid.length?invalid.length+" Eingabe"+(invalid.length===1?"":"n")+" bitte korrigieren.":"",...signatureErrors].filter(Boolean).join(" ");
-      validationSummary.classList.add("visible");
-      status.textContent="Bitte korrigiere die markierten Angaben.";
-      status.classList.add("error");
-      if(invalid.length){invalid[0].focus({preventScroll:true});invalid[0].scrollIntoView({behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"center"});}
-      else validationSummary.focus();
-      scheduleProgressUpdate();
-      return false;
-    }
-    scheduleProgressUpdate();
+    if(!form.reportValidity()){status.textContent="Bitte fülle alle Pflichtfelder korrekt aus.";status.classList.add("error");return false;}
+    if(!canvases.memberSignature.hasInk()){status.textContent="Bitte unterschreibe die Beitrittserklärung.";status.classList.add("error");return false;}
+    if(!canvases.sepaSignature.hasInk()){status.textContent="Bitte unterschreibe das SEPA-Lastschriftmandat.";status.classList.add("error");return false;}
+    if(!validIban(ibanInput.value)){ibanInput.setCustomValidity("Bitte gib eine gültige IBAN mit korrekter Prüfziffer ein.");ibanInput.reportValidity();status.textContent="Bitte prüfe deine IBAN.";status.classList.add("error");return false;}
+    if(Number(value("contribution"))<18){status.textContent="Der Mindestmitgliedsbeitrag beträgt 18,00 €.";status.classList.add("error");return false;}
     return true;
   }
   function collected(){
@@ -659,43 +569,6 @@ input.is-valid,select.is-valid{border-color:#6b987a}
       memberSig:canvases.memberSignature.data(),sepaSig:canvases.sepaSignature.data()
     };
   }
-  const reviewPanel=document.getElementById("reviewPanel");
-  let reviewReady=false;
-  function resetReview(){
-    if(!reviewReady)return;
-    reviewReady=false;
-    reviewPanel.classList.add("hidden");
-    reviewPanel.replaceChildren();
-    status.textContent="Deine Angaben wurden geändert. Bitte prüfe sie vor dem Erstellen des PDFs erneut.";
-    document.getElementById("shareBtn").textContent="PDF erstellen & teilen";
-    document.getElementById("printBtn").textContent="Drucken / PDF speichern";
-  }
-  function showReview(){
-    const rows=[
-      ["Name",value("givenName")+" "+value("surname")],
-      ["E-Mail",value("email")],
-      ["Jahresbeitrag",Number(value("contribution")).toLocaleString("de-DE",{minimumFractionDigits:2,maximumFractionDigits:2})+" €"],
-      ["Kontoinhaber/in",value("accountHolder")],
-      ["IBAN","•••• •••• •••• •••• "+value("iban").replace(/\\s/g,"").slice(-4)],
-      ["Ort und Datum",value("place")+", "+new Date(value("date")+"T12:00:00").toLocaleDateString("de-DE")]
-    ];
-    const heading=document.createElement("h3");heading.textContent="Bitte prüfe deine Angaben";
-    const intro=document.createElement("p");intro.className="hint";intro.textContent="Die wichtigsten Angaben sind hier zusammengefasst. Die vollständigen Kontodaten und Unterschriften werden in das PDF übernommen.";
-    const list=document.createElement("ul");
-    rows.forEach(([label,val])=>{const item=document.createElement("li");const strong=document.createElement("strong");strong.textContent=label+": ";item.append(strong,document.createTextNode(val));list.append(item);});
-    reviewPanel.replaceChildren(heading,intro,list);
-    reviewPanel.classList.remove("hidden");
-    reviewReady=true;
-    status.textContent="Wenn alles stimmt, tippe erneut auf die gewünschte Aktion, um das PDF zu erstellen.";
-    document.getElementById("shareBtn").textContent="Angaben geprüft – PDF teilen";
-    document.getElementById("printBtn").textContent="Angaben geprüft – PDF drucken";
-    reviewPanel.scrollIntoView({behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"center"});
-  }
-  form.addEventListener("input",resetReview);
-  form.addEventListener("change",resetReview);
-  document.querySelectorAll(".signature-canvas").forEach(canvas=>canvas.addEventListener("pointerdown",resetReview));
-  document.querySelectorAll("[data-clear]").forEach(button=>button.addEventListener("click",resetReview));
-
   function addWrapped(doc,text,x,y,maxWidth,lineHeight=5){
     const lines=doc.splitTextToSize(String(text||"—"),maxWidth);
     lines.forEach(line=>{if(y>278){doc.addPage();y=18;}doc.text(line,x,y);y+=lineHeight;});
