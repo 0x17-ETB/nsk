@@ -235,7 +235,7 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
     <div class="sepa-fields" id="sepaFields">
       <div class="notice">Hinweis: Du kannst innerhalb von acht Wochen ab dem Belastungsdatum die Erstattung des belasteten Betrags verlangen. Es gelten dabei die mit meinem Kreditinstitut vereinbarten Bedingungen.</div>
       <div class="grid" style="margin-top:14px">
-        <div class="field full"><label class="field-label" for="iban">IBAN <span class="required">*</span></label><input id="iban" name="iban" autocomplete="off" autocapitalize="characters" spellcheck="false" inputmode="text" placeholder="DE00 0000 0000 0000 0000 00" aria-describedby="ibanHint" required><p class="hint" id="ibanHint">Die IBAN finden Sie beispielsweise auf Ihrer Bankkarte oder im Onlinebanking.</p></div>
+        <div class="field full"><label class="field-label" for="iban">IBAN <span class="required">*</span></label><input id="iban" name="iban" autocomplete="off" autocapitalize="characters" spellcheck="false" inputmode="text" placeholder="DE00 0000 0000 0000 0000 00" aria-describedby="ibanHint" required><p class="hint" id="ibanHint">Deine IBAN findest du beispielsweise auf deiner Bankkarte oder im Onlinebanking.</p></div>
         <div class="field"><label class="field-label" for="bic">BIC</label><input id="bic" name="bic" autocomplete="off" autocapitalize="characters" spellcheck="false"></div>
         <div class="field"><label class="field-label" for="bank">Kreditinstitut</label><input id="bank" name="bank" autocomplete="off"></div>
         <div class="field full"><label class="field-label" for="accountHolder">Kontoinhaber/in <span class="required">*</span></label><input id="accountHolder" name="accountHolder" autocomplete="name" required></div>
@@ -485,7 +485,7 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
     return y;
   }
   function createPdf(data){
-    if(!window.jspdf?.jsPDF) throw new Error("Die PDF-Bibliothek konnte nicht geladen werden. Bitte prüfen Sie die Internetverbindung oder nutzen Sie Drucken / PDF speichern.");
+    if(!window.jspdf?.jsPDF) throw new Error("Die PDF-Bibliothek konnte nicht geladen werden. Bitte prüfe deine Internetverbindung oder nutze „Drucken / PDF speichern“.");
     const doc=new window.jspdf.jsPDF({unit:"mm",format:"a4"});
     const left=17,right=193,width=176;let y=18;
     doc.setFont("helvetica","bold");doc.setFontSize(15);doc.text("Förderverein Nordstadtkita",left,y);y+=7;
