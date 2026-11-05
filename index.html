@@ -279,7 +279,7 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
       <label for="sepaConsent">Ich erteile das nachfolgende SEPA-Lastschriftmandat und ermächtige den Förderverein der Kindertagesstätte Rinteln e.V., den von mir zu entrichtenden Jahresbeitrag jährlich bei Fälligkeit von meinem Konto mittels Lastschrift einzuziehen. Zugleich weise ich mein Kreditinstitut an, die vom Förderverein auf mein Konto gezogenen Lastschriften einzulösen.</label>
     </div>
     <div class="sepa-fields" id="sepaFields">
-      <div class="notice">Hinweis: Du kannst innerhalb von acht Wochen ab dem Belastungsdatum die Erstattung des belasteten Betrags verlangen.</div>
+      <div class="notice">Hinweis: Du kannst innerhalb von acht Wochen ab dem Belastungsdatum die Erstattung des belasteten Betrags verlangen. Es gelten dabei die mit deinem Kreditinstitut vereinbarten Bedingungen.</div>
       <div class="grid" style="margin-top:14px">
         <div class="field full"><label class="field-label" for="iban">IBAN <span class="required">*</span></label><input id="iban" name="iban" autocomplete="off" autocapitalize="characters" spellcheck="false" inputmode="text" placeholder="DE00 0000 0000 0000 0000 00" aria-describedby="ibanHint" required><p class="hint" id="ibanHint">Deine IBAN findest du beispielsweise auf deinem Kontoauszug oder im Onlinebanking.</p></div>
         <div class="field"><label class="field-label" for="bic">BIC <span class="hint">(optional)</span></label><input id="bic" name="bic" autocomplete="off" autocapitalize="characters" spellcheck="false"></div>
@@ -337,7 +337,7 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
       Deine Eingaben und Unterschriften werden direkt in deinem Browser verarbeitet. Das PDF wird lokal auf deinem Gerät erstellt. Dieses Formular überträgt und speichert die eingegebenen Mitglieds- und Bankdaten nicht auf dem Webserver.<br><br>
       Erst wenn du das PDF aktiv über die Teilen-Funktion versendest oder anderweitig weitergibst, gelangen die darin enthaltenen Angaben an die von dir ausgewählten Empfänger bzw. Dienste. Beim Speichern entscheidest du selbst über den Ablageort.
     </div>
-    <p class="hint">Für die Auslieferung der Website und einzelner externer Inhalte werden technische Verbindungsdaten verarbeitet. Welche Anbieter dabei eingebunden sind und welche Daten betroffen sein können, erläutert die Datenschutzerklärung.</p>
+    <p class="hint">Beim Aufruf der Website werden technisch erforderliche Verbindungsdaten durch den Hosting-Anbieter verarbeitet. Einzelheiten dazu findest du in der Datenschutzerklärung.</p>
   </section>
 </main>
 <div class="footer">Förderverein der Kindertagesstätte Rinteln e.V. · <a href="./datenschutz.html">Datenschutzerklärung</a> · Bitte prüfe deine Angaben vor dem Erstellen des PDFs. <span class="required">* Pflichtfelder</span></div>
@@ -497,7 +497,8 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
   function normalizeIban(v){return v.replace(/[^a-z0-9]/gi,"").toUpperCase();}
   function validIban(v){
     const s=normalizeIban(v);
-    if(!/^[A-Z]{2}[0-9A-Z]{13,32}$/.test(s)) return false;
+    const ibanLengths={AL:28,AD:24,AT:20,AZ:28,BH:22,BE:16,BA:20,BR:29,BG:22,CR:22,HR:21,CY:28,CZ:24,DK:18,DO:28,EE:20,FO:18,FI:18,FR:27,GE:22,DE:22,GI:23,GR:27,GL:18,GT:28,HU:28,IS:26,IE:22,IL:23,IT:27,JO:30,KZ:20,KW:30,LV:21,LB:28,LI:21,LT:20,LU:20,MK:19,MT:31,MR:27,MU:30,MC:27,MD:24,ME:22,NL:18,NO:15,PK:24,PS:29,PL:28,PT:25,QA:29,RO:24,SM:27,SA:24,RS:22,SK:24,SI:19,ES:24,SE:24,CH:21,TN:24,TR:26,AE:23,GB:22,VA:22};
+    if(!/^[A-Z]{2}[0-9A-Z]+$/.test(s)||!ibanLengths[s.slice(0,2)]||s.length!==ibanLengths[s.slice(0,2)]) return false;
     const rotated=s.slice(4)+s.slice(0,4);
     let remainder=0;
     for(const ch of rotated){
@@ -604,21 +605,21 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
         doc.text(textLine,left+43,y);y+=6;
       });
     };
-    section("1. Persönliche Angaben");
+    section("Persönliche Angaben");
     line("Name:",data.surname);line("Vorname:",data.givenName);line("Straße / Nr.:",data.street);line("PLZ / Ort:",data.postal+" "+data.city);line("E-Mail:",data.email);
-    y+=2;section("2. Mitgliedsbeitrag");line("Jährlicher Beitrag:",data.contribution);line("Zahlungsart:",data.payment);
+    y+=2;section("Mitgliedsbeitrag");line("Jährlicher Beitrag:",data.contribution);line("Zahlungsart:",data.payment);
     if(data.sepa){
-      y+=2;section("3. SEPA-Lastschriftmandat");
+      y+=2;section("SEPA-Lastschriftmandat");
       y=addWrapped(doc,"Gläubiger-Identifikationsnummer: DE92ZZZ00001253396",left,y,width,5);
       y=addWrapped(doc,"Mandatsreferenz: wird separat mitgeteilt (Mitgliedsnummer)",left,y,width,5);
       y+=2;y=addWrapped(doc,"Ich ermächtige den Förderverein der Kindertagesstätte Rinteln e.V., den von mir zu entrichtenden Jahresbeitrag jährlich bei Fälligkeit von meinem Konto mittels Lastschrift einzuziehen. Zugleich weise ich mein Kreditinstitut an, die vom Verein auf mein Konto gezogenen Lastschriften einzulösen.",left,y,width,4.7);
-      y+=1;y=addWrapped(doc,"Hinweis: Du kannst innerhalb von acht Wochen ab dem Belastungsdatum die Erstattung des belasteten Betrags verlangen.",left,y,width,4.7);
+      y+=1;y=addWrapped(doc,"Hinweis: Du kannst innerhalb von acht Wochen ab dem Belastungsdatum die Erstattung des belasteten Betrags verlangen. Es gelten dabei die mit deinem Kreditinstitut vereinbarten Bedingungen.",left,y,width,4.7);
       y+=2;line("IBAN:",data.iban);line("BIC:",data.bic);line("Kreditinstitut:",data.bank);line("Kontoinhaber/in:",data.accountHolder);
       if(y>258){doc.addPage();y=18;}
       doc.setFont("helvetica","bold");doc.text("Unterschrift Kontoinhaber/in:",left,y);y+=2;
       if(data.sepaSig){doc.addImage(data.sepaSig,"PNG",left+60,y-5,65,17);}y+=16;
     }
-    y+=2;section("4. Ort, Datum und Unterschrift");line("Ort, Datum:",data.place+", "+data.date);
+    y+=2;section("Ort, Datum und Unterschrift");line("Ort, Datum:",data.place+", "+data.date);
     if(y>258){doc.addPage();y=18;}
     doc.setFont("helvetica","bold");doc.text("Unterschrift Antragsteller/in:",left,y);y+=2;
     if(data.memberSig){doc.addImage(data.memberSig,"PNG",left+60,y-5,65,17);}y+=17;
