@@ -47,6 +47,12 @@ button:disabled{opacity:.55;cursor:not-allowed}
 .error{color:var(--danger)}
 .footer{padding:0 16px 28px;color:var(--muted);font-size:.8rem;text-align:center}
 .required{color:var(--danger)}
+.form-time{font-size:.82rem!important;margin-top:5px!important;color:#68766f!important}
+.amount-presets{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:0 0 12px}
+.amount-preset{min-height:40px;padding:8px 15px;border:1px solid #cbd7cf;border-radius:9px;background:#fff;color:#315b4d;font:650 .92rem system-ui;cursor:pointer}
+.amount-preset[aria-pressed="true"]{background:#eaf2ec;border-color:#477965;box-shadow:inset 0 0 0 1px #477965}
+.preset-hint{font-size:.78rem;color:var(--muted)}
+.signature-explanation{margin:0 0 9px;line-height:1.5}
 .hidden{display:none!important}
 @media(max-width:560px){.grid{grid-template-columns:1fr}.field.full{grid-column:auto}.actions{grid-template-columns:1fr}header{padding-top:20px}}
 @media print{
@@ -199,7 +205,7 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
   <div class="header-copy">
     <div class="eyebrow">Förderverein der Kindertagesstätte Rinteln e. V.</div>
     <h1>Beitrittserklärung</h1>
-    <p>Schön, dass du unsere Kita unterstützen möchtest.</p>
+    <p>Schön, dass du unsere Kita unterstützen möchtest.</p><p class="form-time">In etwa 3 Minuten ausgefüllt · Unterschrift direkt auf dem Bildschirm</p>
   </div>
 </div>
 </header>
@@ -221,8 +227,8 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
   <section class="card">
     <h2>1. Persönliche Angaben</h2>
     <div class="grid">
-      <div class="field"><label class="field-label" for="surname">Name <span class="required">*</span></label><input id="surname" name="surname" autocomplete="family-name" required></div>
       <div class="field"><label class="field-label" for="givenName">Vorname <span class="required">*</span></label><input id="givenName" name="givenName" autocomplete="given-name" required></div>
+      <div class="field"><label class="field-label" for="surname">Nachname <span class="required">*</span></label><input id="surname" name="surname" autocomplete="family-name" required></div>
       <div class="field full"><label class="field-label" for="street">Straße und Hausnummer <span class="required">*</span></label><input id="street" name="street" autocomplete="street-address" required></div>
       <div class="field"><label class="field-label" for="postal">Postleitzahl <span class="required">*</span></label><input id="postal" name="postal" inputmode="numeric" autocomplete="postal-code" pattern="[0-9]{5}" maxlength="5" required></div>
       <div class="field"><label class="field-label" for="city">Ort <span class="required">*</span></label><input id="city" name="city" autocomplete="address-level2" required></div>
@@ -235,6 +241,7 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
     <p class="intro">Mit deinem Jahresbeitrag unterstützt du die Arbeit des Fördervereins. Die Beitragshöhe kannst du selbst festlegen.</p>
     <div class="contribution-panel">
       <label class="field-label" for="contribution">Dein jährlicher Mitgliedsbeitrag <span class="required">*</span></label>
+      <div class="amount-presets" role="group" aria-label="Beitrag auswählen"><button type="button" class="amount-preset" data-amount="18">18 €</button><button type="button" class="amount-preset" data-amount="30">30 €</button><button type="button" class="amount-preset" data-amount="50">50 €</button><span class="preset-hint">oder eigenen Betrag eingeben</span></div>
       <div class="amount-input-wrap">
         <input id="contribution" name="contribution" type="number" min="18" step="0.01" inputmode="decimal" value="18.00" aria-describedby="contributionHint" required>
         <span class="amount-currency" aria-hidden="true">€ <small>/ Jahr</small></span>
@@ -267,6 +274,7 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
         <div class="field full"><label class="field-label" for="accountHolder">Kontoinhaber/in <span class="required">*</span></label><input id="accountHolder" name="accountHolder" autocomplete="name" required></div>
       </div>
       <div style="margin-top:15px">
+        <p class="hint signature-explanation">Diese Unterschrift autorisiert den Einzug des Mitgliedsbeitrags vom angegebenen Konto. Sie ist daher unabhängig von der Unterschrift unter dem Mitgliedsantrag erforderlich.</p>
         <label class="field-label">Unterschrift Kontoinhaber/in <span class="required">*</span></label>
         <div class="signature-wrap">
           <div class="signature-top"><strong>Bitte hier unterschreiben</strong><button class="small-btn" type="button" data-clear="sepaSignature">Löschen</button></div>
@@ -298,6 +306,7 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
       <div class="field"><label class="field-label" for="date">Datum <span class="required">*</span></label><input id="date" name="date" type="date" required></div>
     </div>
     <div style="margin-top:17px">
+      <p class="hint signature-explanation">Hiermit bestätigst du deinen Antrag auf Mitgliedschaft. Die separate Unterschrift im vorherigen Abschnitt gilt ausschließlich für das SEPA-Lastschriftmandat.</p>
       <label class="field-label">Unterschrift Antragsteller/in <span class="required">*</span></label>
       <div class="signature-wrap">
         <div class="signature-top"><strong>Bitte hier unterschreiben</strong><button class="small-btn" type="button" data-clear="memberSignature">Löschen</button></div>
@@ -309,7 +318,7 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
 
   <section class="card">
     <h2>Formular abschließen</h2>
-    <p class="intro">Nach der Prüfung wird ein PDF mit deinen Angaben und Unterschriften erstellt. Du kannst es anschließend über die Teilen-Funktion deines Geräts per E-Mail oder WhatsApp teilen (sofern auf deinem Gerät verfügbar) oder ausdrucken.</p>
+    <p class="intro">Prüfe deine Angaben und erstelle anschließend das unterschriebene PDF. Der Antrag ist erst beim Förderverein eingegangen, wenn du das PDF tatsächlich übermittelt hast. Du kannst es über die Teilen-Funktion versenden oder herunterladen und später selbst per E-Mail weiterleiten.</p>
     <div class="actions">
       <button class="primary" type="button" id="shareBtn">PDF erstellen &amp; teilen</button>
       <button class="secondary" type="button" id="printBtn">Drucken / PDF speichern</button>
@@ -318,7 +327,7 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
   </section>
 </form>
 </main>
-<div class="footer">Förderverein der Kindertagesstätte Rinteln e.V. · Bitte prüfe deine Angaben vor dem Absenden. <span class="required">* Pflichtfelder</span></div>
+<div class="footer">Förderverein der Kindertagesstätte Rinteln e.V. · Bitte prüfe deine Angaben vor dem Erstellen des PDFs. <span class="required">* Pflichtfelder</span></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
@@ -331,6 +340,22 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
   const ibanInput = document.getElementById("iban");
   const accountHolder = document.getElementById("accountHolder");
   const dateInput = document.getElementById("date");
+  const cityInput = document.getElementById("city");
+  const placeInput = document.getElementById("place");
+  const contributionInput = document.getElementById("contribution");
+  let placeManuallyEdited = false;
+  placeInput.addEventListener("input", () => { placeManuallyEdited = placeInput.value.trim() !== ""; });
+  cityInput.addEventListener("input", () => { if (!placeManuallyEdited) placeInput.value = cityInput.value; });
+  document.querySelectorAll("[data-amount]").forEach(button => {
+    button.addEventListener("click", () => {
+      contributionInput.value = button.dataset.amount;
+      document.querySelectorAll("[data-amount]").forEach(item => item.setAttribute("aria-pressed", String(item === button)));
+      contributionInput.dispatchEvent(new Event("change", { bubbles: true }));
+    });
+  });
+  contributionInput.addEventListener("input", () => {
+    document.querySelectorAll("[data-amount]").forEach(button => button.setAttribute("aria-pressed", String(Number(contributionInput.value) === Number(button.dataset.amount))));
+  });
   const today = new Date();
   dateInput.value = new Date(today.getTime() - today.getTimezoneOffset()*60000).toISOString().slice(0,10);
 
