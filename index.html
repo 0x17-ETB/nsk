@@ -123,7 +123,7 @@ header .inner{padding-bottom:18px}
 .hero-photo{height:clamp(155px,22vw,225px)}
 .hero-photo img{object-position:center 54%}
 .hero-caption{display:none}
-.progress-shell{background:#fff;border-bottom:1px solid var(--line)}
+.progress-shell{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,.97);border-bottom:1px solid var(--line);box-shadow:0 3px 12px rgba(37,67,52,.07);backdrop-filter:saturate(150%) blur(10px);-webkit-backdrop-filter:saturate(150%) blur(10px)}
 .progress-inner{max-width:820px;margin:auto;padding:16px 14px 13px}
 .progress-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:.9rem;margin-bottom:10px}
 .progress-heading strong{color:var(--green);font-size:1rem}
@@ -181,7 +181,7 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
   <div class="header-copy">
     <div class="eyebrow">Förderverein der Kindertagesstätte Rinteln e. V.</div>
     <h1>Beitrittserklärung</h1>
-    <p>Schön, dass Sie unsere Kita unterstützen möchten.</p>
+    <p>Schön, dass du unsere Kita unterstützen möchtest.</p>
   </div>
 </div>
 <div class="hero-photo" role="img" aria-label="Außenansicht der Nordstadtkita in Rinteln">
@@ -191,7 +191,7 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
 </header>
 <div class="progress-shell" aria-label="Formularübersicht">
   <div class="progress-inner">
-    <div class="progress-heading"><strong>Ihr Mitgliedsantrag</strong><span id="progressLabel">Persönliche Angaben</span></div>
+    <div class="progress-heading"><strong>Dein Mitgliedsantrag</strong><span id="progressLabel">Persönliche Angaben</span></div>
     <div class="progress-track" aria-hidden="true"><span id="progressBar"></span></div>
     <div class="progress-steps" aria-hidden="true"><span class="active">Angaben</span><span>Beitrag</span><span>Lastschrift</span><span>Datenschutz</span><span>Unterschrift</span></div>
   </div>
@@ -222,7 +222,7 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
 
   <section class="card" id="sepaSection">
     <h2>3. SEPA-Lastschriftmandat</h2>
-    <p class="intro">Der Mitgliedsbeitrag wird ausschließlich per SEPA-Lastschrift eingezogen. Bitte erteilen Sie hierzu das nachfolgende Lastschriftmandat und geben Sie Ihre Kontodaten an.</p>
+    <p class="intro">Der Mitgliedsbeitrag wird ausschließlich per SEPA-Lastschrift eingezogen. Bitte erteile dazu das folgende Lastschriftmandat und gib deine Kontodaten an.</p>
     <div class="notice">
       <strong>Förderverein der Kindertagesstätte Rinteln e.V.</strong><br>
       Gläubiger-Identifikationsnummer: <strong>DE92ZZZ00001253396</strong><br>
@@ -233,7 +233,7 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
       <label for="sepaConsent">Ich erteile das nachfolgende SEPA-Lastschriftmandat und ermächtige den Förderverein der Kindertagesstätte Rinteln e.V., den von mir zu entrichtenden Jahresbeitrag jährlich bei Fälligkeit von meinem Konto mittels Lastschrift einzuziehen. Zugleich weise ich mein Kreditinstitut an, die vom Förderverein auf mein Konto gezogenen Lastschriften einzulösen.</label>
     </div>
     <div class="sepa-fields" id="sepaFields">
-      <div class="notice">Hinweis: Ich kann innerhalb von acht Wochen, beginnend mit dem Belastungsdatum, die Erstattung des belasteten Betrages verlangen. Es gelten dabei die mit meinem Kreditinstitut vereinbarten Bedingungen.</div>
+      <div class="notice">Hinweis: Du kannst innerhalb von acht Wochen ab dem Belastungsdatum die Erstattung des belasteten Betrags verlangen. Es gelten dabei die mit meinem Kreditinstitut vereinbarten Bedingungen.</div>
       <div class="grid" style="margin-top:14px">
         <div class="field full"><label class="field-label" for="iban">IBAN <span class="required">*</span></label><input id="iban" name="iban" autocomplete="off" autocapitalize="characters" spellcheck="false" inputmode="text" placeholder="DE00 0000 0000 0000 0000 00" aria-describedby="ibanHint" required><p class="hint" id="ibanHint">Die IBAN finden Sie beispielsweise auf Ihrer Bankkarte oder im Onlinebanking.</p></div>
         <div class="field"><label class="field-label" for="bic">BIC</label><input id="bic" name="bic" autocomplete="off" autocapitalize="characters" spellcheck="false"></div>
@@ -271,13 +271,13 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
         <div class="signature-top"><strong>Bitte hier unterschreiben</strong><button class="small-btn" type="button" data-clear="memberSignature">Löschen</button></div>
         <canvas class="signature-canvas" id="memberSignature" aria-label="Unterschrift Antragsteller"></canvas>
       </div>
-      <p class="hint">Mit Ihrer Unterschrift bestätigen Sie den Antrag auf Mitgliedschaft.</p>
+      <p class="hint">Mit deiner Unterschrift bestätigst du deinen Antrag auf Mitgliedschaft.</p>
     </div>
   </section>
 
   <section class="card">
     <h2>Formular abschließen</h2>
-    <p class="intro">Nach der Prüfung wird ein PDF mit Ihren Angaben und Unterschriften erstellt. Sie können es anschließend über die Teilen-Funktion Ihres Geräts per E-Mail versenden oder ausdrucken.</p>
+    <p class="intro">Nach der Prüfung wird ein PDF mit deinen Angaben und Unterschriften erstellt. Du kannst es anschließend über die Teilen-Funktion deines Geräts per E-Mail versenden oder ausdrucken.</p>
     <div class="actions">
       <button class="primary" type="button" id="shareBtn">PDF erstellen &amp; teilen</button>
       <button class="secondary" type="button" id="printBtn">Drucken / PDF speichern</button>
@@ -286,7 +286,7 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
   </section>
 </form>
 </main>
-<div class="footer">Förderverein der Kindertagesstätte Rinteln e.V. · Bitte prüfen Sie Ihre Angaben vor dem Absenden.</div>
+<div class="footer">Förderverein der Kindertagesstätte Rinteln e.V. · Bitte prüfe deine Angaben vor dem Absenden.</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
@@ -435,7 +435,7 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
     ibanInput.setCustomValidity("");
   });
   ibanInput.addEventListener("blur",()=>{
-    if(ibanInput.value.trim()&&!validIban(ibanInput.value)) ibanInput.setCustomValidity("Bitte prüfen Sie die IBAN. Die Prüfziffer ist nicht korrekt.");
+    if(ibanInput.value.trim()&&!validIban(ibanInput.value)) ibanInput.setCustomValidity("Bitte prüfe deine IBAN. Die Prüfziffer ist nicht korrekt.");
     else ibanInput.setCustomValidity("");
   });
 
@@ -461,10 +461,10 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
   function value(id){return (document.getElementById(id)?.value||"").trim();}
   function validate(){
     status.textContent="";status.classList.remove("error");
-    if(!form.reportValidity()){status.textContent="Bitte füllen Sie alle Pflichtfelder korrekt aus.";status.classList.add("error");return false;}
-    if(!canvases.memberSignature.hasInk()){status.textContent="Bitte unterschreiben Sie die Beitrittserklärung.";status.classList.add("error");return false;}
-    if(!canvases.sepaSignature.hasInk()){status.textContent="Bitte unterschreiben Sie das SEPA-Lastschriftmandat.";status.classList.add("error");return false;}
-    if(!validIban(ibanInput.value)){ibanInput.setCustomValidity("Bitte geben Sie eine gültige IBAN mit korrekter Prüfziffer ein.");ibanInput.reportValidity();status.textContent="Bitte prüfen Sie Ihre IBAN.";status.classList.add("error");return false;}
+    if(!form.reportValidity()){status.textContent="Bitte fülle alle Pflichtfelder korrekt aus.";status.classList.add("error");return false;}
+    if(!canvases.memberSignature.hasInk()){status.textContent="Bitte unterschreibe die Beitrittserklärung.";status.classList.add("error");return false;}
+    if(!canvases.sepaSignature.hasInk()){status.textContent="Bitte unterschreibe das SEPA-Lastschriftmandat.";status.classList.add("error");return false;}
+    if(!validIban(ibanInput.value)){ibanInput.setCustomValidity("Bitte gib eine gültige IBAN mit korrekter Prüfziffer ein.");ibanInput.reportValidity();status.textContent="Bitte prüfe deine IBAN.";status.classList.add("error");return false;}
     if(Number(value("contribution"))<18){status.textContent="Der Mindestmitgliedsbeitrag beträgt 18,00 €.";status.classList.add("error");return false;}
     return true;
   }
@@ -501,7 +501,7 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
       y=addWrapped(doc,"Gläubiger-Identifikationsnummer: DE92ZZZ00001253396",left,y,width,5);
       y=addWrapped(doc,"Mandatsreferenz: wird separat mitgeteilt (Mitgliedsnummer)",left,y,width,5);
       y+=2;y=addWrapped(doc,"Ich ermächtige den Förderverein der Kindertagesstätte Rinteln e.V., den von mir zu entrichtenden Jahresbeitrag jährlich bei Fälligkeit von meinem Konto mittels Lastschrift einzuziehen. Zugleich weise ich mein Kreditinstitut an, die vom Verein auf mein Konto gezogenen Lastschriften einzulösen.",left,y,width,4.7);
-      y+=1;y=addWrapped(doc,"Hinweis: Ich kann innerhalb von acht Wochen, beginnend mit dem Belastungsdatum, die Erstattung des belasteten Betrages verlangen. Es gelten dabei die mit meinem Kreditinstitut vereinbarten Bedingungen.",left,y,width,4.7);
+      y+=1;y=addWrapped(doc,"Hinweis: Du kannst innerhalb von acht Wochen ab dem Belastungsdatum die Erstattung des belasteten Betrags verlangen. Es gelten dabei die mit meinem Kreditinstitut vereinbarten Bedingungen.",left,y,width,4.7);
       y+=2;line("IBAN:",data.iban);line("BIC:",data.bic);line("Kreditinstitut:",data.bank);line("Kontoinhaber/in:",data.accountHolder);
       doc.setFont("helvetica","bold");doc.text("Unterschrift Kontoinhaber/in:",left,y);y+=2;
       if(data.sepaSig){doc.addImage(data.sepaSig,"PNG",left+60,y-5,65,17);}y+=16;
@@ -523,10 +523,10 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
       const file=new File([blob],"Beitrittserklaerung.pdf",{type:"application/pdf"});
       if(navigator.canShare && navigator.canShare({files:[file]}) && navigator.share){
         await navigator.share({files:[file],title:"Beitrittserklärung Förderverein Nordstadtkita",text:"Ausgefüllte und unterschriebene Beitrittserklärung."});
-        status.textContent="Das PDF wurde an die Teilen-Funktion übergeben. Bitte wählen Sie Ihre E-Mail-App und bestätigen Sie den Versand.";
+        status.textContent="Das PDF wurde an die Teilen-Funktion übergeben. Bitte wähle deine E-Mail-App und bestätige den Versand.";
       }else{
         doc.save("Beitrittserklaerung.pdf");
-        status.textContent="Ihr Gerät unterstützt das direkte Teilen von PDF-Dateien nicht. Das PDF wurde heruntergeladen. Sie können es nun Ihrer E-Mail anhängen.";
+        status.textContent="Dein Gerät unterstützt das direkte Teilen von PDF-Dateien nicht. Das PDF wurde heruntergeladen. Du kannst es nun an deine E-Mail anhängen.";
       }
     }catch(err){
       if(err.name==="AbortError"){status.textContent="Teilen wurde abgebrochen.";}
@@ -536,7 +536,7 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
   document.getElementById("shareBtn").addEventListener("click",sharePdf);
   document.getElementById("printBtn").addEventListener("click",()=>{
     if(!validate())return;
-    status.textContent="Druckansicht wird geöffnet. Im Druckdialog können Sie auch „Als PDF sichern“ auswählen.";
+    status.textContent="Die Druckansicht wird geöffnet. Im Druckdialog kannst du auch „Als PDF sichern“ auswählen.";
     window.print();
   });
 })();
