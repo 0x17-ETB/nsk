@@ -279,6 +279,12 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
   <section class="card">
     <h2>4. Datenschutz und Information</h2>
     <p>Die im Rahmen dieser Beitrittserklärung erhobenen personenbezogenen Daten werden vom Förderverein der Kindertagesstätte Rinteln e.V. ausschließlich zur Mitgliederverwaltung und zur Durchführung der Mitgliedschaft unter Beachtung der geltenden Datenschutzbestimmungen verarbeitet.</p>
+    <div class="notice">
+      <strong>Was passiert mit deinen Angaben?</strong><br>
+      Deine Eingaben und Unterschriften werden direkt in deinem Browser verarbeitet. Das PDF mit deinen Angaben wird lokal auf deinem Gerät erstellt. Eine automatische Übermittlung der Formulardaten an einen Server oder den Förderverein findet nicht statt. Die Daten werden durch das Formular auch nicht online gespeichert.<br><br>
+      Erst wenn du das erstellte PDF aktiv über die Teilen-Funktion versendest, beispielsweise per E-Mail oder WhatsApp, gibst du die darin enthaltenen Daten an die von dir ausgewählten Empfänger bzw. Dienste weiter. Beim Drucken oder Speichern als PDF entscheidest du selbst, wo das Dokument abgelegt wird.
+    </div>
+    <p class="hint">Hinweis: Beim Laden externer Inhalte (z. B. des Kita-Fotos oder der PDF-Bibliothek) werden technisch notwendige Verbindungsdaten an deren Anbieter übermittelt. Die von dir eingegebenen Formularinhalte und Unterschriften werden dabei nicht übertragen.</p>
     <div class="checkline">
       <input type="checkbox" id="privacyAck" required>
       <label for="privacyAck">Ich habe die Hinweise zur Verarbeitung meiner Daten zur Kenntnis genommen. <span class="required">*</span></label>
@@ -560,6 +566,8 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
     }
     y+=2;section("4. Datenschutz und Information");
     y=addWrapped(doc,"Die personenbezogenen Daten werden zur Mitgliederverwaltung und Durchführung der Mitgliedschaft unter Beachtung der geltenden Datenschutzbestimmungen verarbeitet.",left,y,width,4.7);
+    y+=1;y=addWrapped(doc,"Deine Eingaben und Unterschriften werden direkt in deinem Browser verarbeitet. Das PDF wird lokal auf deinem Gerät erstellt. Eine automatische Übermittlung der Formulardaten an einen Server oder den Förderverein findet nicht statt; das Formular speichert die Daten nicht online.",left,y,width,4.7);
+    y+=1;y=addWrapped(doc,"Erst wenn du das PDF aktiv über die Teilen-Funktion versendest, gibst du die darin enthaltenen Daten an die ausgewählten Empfänger bzw. Dienste weiter. Beim Drucken oder Speichern entscheidest du selbst über den Ablageort.",left,y,width,4.7);
     line("Datenschutzhinweis:",data.privacy?"Zur Kenntnis genommen":"—");
     y+=2;section("5. Ort, Datum und Unterschrift");line("Ort, Datum:",data.place+", "+data.date);
     doc.setFont("helvetica","bold");doc.text("Unterschrift Antragsteller/in:",left,y);y+=2;
