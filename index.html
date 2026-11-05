@@ -198,7 +198,7 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
 .field-error{display:block;color:var(--danger);font-size:.82rem;line-height:1.4;margin:6px 2px 0}.checkline{flex-wrap:wrap}.checkline .field-error{flex-basis:100%;margin-left:35px}
 input[aria-invalid="true"],select[aria-invalid="true"]{border-color:var(--danger);box-shadow:0 0 0 3px rgba(165,40,40,.09)}
 input.is-valid,select.is-valid{border-color:#6b987a}
-.validation-summary{display:none;margin:0 0 14px;padding:13px 15px;border:1px solid #e7caca;border-left:4px solid var(--danger);border-radius:10px;background:#fff8f7;color:#762525}
+.review-panel{margin:0 0 15px;padding:15px 16px;background:#f4f8f5;border:1px solid #dce8df;border-radius:12px}.review-panel h3{margin:0 0 9px;color:var(--green);font-size:1rem}.review-panel ul{margin:0;padding-left:19px}.review-panel li{margin:4px 0;font-size:.9rem;overflow-wrap:anywhere}.validation-summary{display:none;margin:0 0 14px;padding:13px 15px;border:1px solid #e7caca;border-left:4px solid var(--danger);border-radius:10px;background:#fff8f7;color:#762525}
 .validation-summary.visible{display:block}
 .validation-summary strong{display:block;margin-bottom:4px}
 .progress-track span{transition:width .25s ease}
@@ -659,6 +659,43 @@ input.is-valid,select.is-valid{border-color:#6b987a}
       memberSig:canvases.memberSignature.data(),sepaSig:canvases.sepaSignature.data()
     };
   }
+  const reviewPanel=document.getElementById("reviewPanel");
+  let reviewReady=false;
+  function resetReview(){
+    if(!reviewReady)return;
+    reviewReady=false;
+    reviewPanel.classList.add("hidden");
+    reviewPanel.replaceChildren();
+    status.textContent="Deine Angaben wurden geändert. Bitte prüfe sie vor dem Erstellen des PDFs erneut.";
+    document.getElementById("shareBtn").textContent="PDF erstellen & teilen";
+    document.getElementById("printBtn").textContent="Drucken / PDF speichern";
+  }
+  function showReview(){
+    const rows=[
+      ["Name",value("givenName")+" "+value("surname")],
+      ["E-Mail",value("email")],
+      ["Jahresbeitrag",Number(value("contribution")).toLocaleString("de-DE",{minimumFractionDigits:2,maximumFractionDigits:2})+" €"],
+      ["Kontoinhaber/in",value("accountHolder")],
+      ["IBAN","•••• •••• •••• •••• "+value("iban").replace(/\\s/g,"").slice(-4)],
+      ["Ort und Datum",value("place")+", "+new Date(value("date")+"T12:00:00").toLocaleDateString("de-DE")]
+    ];
+    const heading=document.createElement("h3");heading.textContent="Bitte prüfe deine Angaben";
+    const intro=document.createElement("p");intro.className="hint";intro.textContent="Die wichtigsten Angaben sind hier zusammengefasst. Die vollständigen Kontodaten und Unterschriften werden in das PDF übernommen.";
+    const list=document.createElement("ul");
+    rows.forEach(([label,val])=>{const item=document.createElement("li");const strong=document.createElement("strong");strong.textContent=label+": ";item.append(strong,document.createTextNode(val));list.append(item);});
+    reviewPanel.replaceChildren(heading,intro,list);
+    reviewPanel.classList.remove("hidden");
+    reviewReady=true;
+    status.textContent="Wenn alles stimmt, tippe erneut auf die gewünschte Aktion, um das PDF zu erstellen.";
+    document.getElementById("shareBtn").textContent="Angaben geprüft – PDF teilen";
+    document.getElementById("printBtn").textContent="Angaben geprüft – PDF drucken";
+    reviewPanel.scrollIntoView({behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"center"});
+  }
+  form.addEventListener("input",resetReview);
+  form.addEventListener("change",resetReview);
+  document.querySelectorAll(".signature-canvas").forEach(canvas=>canvas.addEventListener("pointerdown",resetReview));
+  document.querySelectorAll("[data-clear]").forEach(button=>button.addEventListener("click",resetReview));
+
   function addWrapped(doc,text,x,y,maxWidth,lineHeight=5){
     const lines=doc.splitTextToSize(String(text||"—"),maxWidth);
     lines.forEach(line=>{if(y>278){doc.addPage();y=18;}doc.text(line,x,y);y+=lineHeight;});
