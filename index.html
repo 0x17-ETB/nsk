@@ -266,7 +266,7 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
       <label for="sepaConsent">Ich erteile das nachfolgende SEPA-Lastschriftmandat und ermächtige den Förderverein der Kindertagesstätte Rinteln e.V., den von mir zu entrichtenden Jahresbeitrag jährlich bei Fälligkeit von meinem Konto mittels Lastschrift einzuziehen. Zugleich weise ich mein Kreditinstitut an, die vom Förderverein auf mein Konto gezogenen Lastschriften einzulösen.</label>
     </div>
     <div class="sepa-fields" id="sepaFields">
-      <div class="notice">Hinweis: Du kannst innerhalb von acht Wochen ab dem Belastungsdatum die Erstattung des belasteten Betrags verlangen. Es gelten dabei die mit meinem Kreditinstitut vereinbarten Bedingungen.</div>
+      <div class="notice">Hinweis: Du kannst innerhalb von acht Wochen ab dem Belastungsdatum die Erstattung des belasteten Betrags verlangen.</div>
       <div class="grid" style="margin-top:14px">
         <div class="field full"><label class="field-label" for="iban">IBAN <span class="required">*</span></label><input id="iban" name="iban" autocomplete="off" autocapitalize="characters" spellcheck="false" inputmode="text" placeholder="DE00 0000 0000 0000 0000 00" aria-describedby="ibanHint" required><p class="hint" id="ibanHint">Deine IBAN findest du beispielsweise auf deiner Bankkarte oder im Onlinebanking.</p></div>
         <div class="field"><label class="field-label" for="bic">BIC</label><input id="bic" name="bic" autocomplete="off" autocapitalize="characters" spellcheck="false"></div>
@@ -600,7 +600,7 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
       y=addWrapped(doc,"Gläubiger-Identifikationsnummer: DE92ZZZ00001253396",left,y,width,5);
       y=addWrapped(doc,"Mandatsreferenz: wird separat mitgeteilt (Mitgliedsnummer)",left,y,width,5);
       y+=2;y=addWrapped(doc,"Ich ermächtige den Förderverein der Kindertagesstätte Rinteln e.V., den von mir zu entrichtenden Jahresbeitrag jährlich bei Fälligkeit von meinem Konto mittels Lastschrift einzuziehen. Zugleich weise ich mein Kreditinstitut an, die vom Verein auf mein Konto gezogenen Lastschriften einzulösen.",left,y,width,4.7);
-      y+=1;y=addWrapped(doc,"Hinweis: Du kannst innerhalb von acht Wochen ab dem Belastungsdatum die Erstattung des belasteten Betrags verlangen. Es gelten dabei die mit meinem Kreditinstitut vereinbarten Bedingungen.",left,y,width,4.7);
+      y+=1;y=addWrapped(doc,"Hinweis: Du kannst innerhalb von acht Wochen ab dem Belastungsdatum die Erstattung des belasteten Betrags verlangen.",left,y,width,4.7);
       y+=2;line("IBAN:",data.iban);line("BIC:",data.bic);line("Kreditinstitut:",data.bank);line("Kontoinhaber/in:",data.accountHolder);
       if(y>258){doc.addPage();y=18;}
       doc.setFont("helvetica","bold");doc.text("Unterschrift Kontoinhaber/in:",left,y);y+=2;
