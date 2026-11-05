@@ -605,13 +605,27 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
     lines.forEach(line=>{if(y>278){doc.addPage();y=18;}doc.text(line,x,y);y+=lineHeight;});
     return y;
   }
-  function createPdf(data){
+  async function loadLogoDataUrl(){
+    const response=await fetch("./IMG_0880.jpeg");
+    if(!response.ok) throw new Error("Das Nordstadtkita-Logo konnte für das PDF nicht geladen werden.");
+    const blob=await response.blob();
+    return await new Promise((resolve,reject)=>{
+      const reader=new FileReader();
+      reader.onload=()=>resolve(reader.result);
+      reader.onerror=()=>reject(new Error("Das Logo konnte nicht verarbeitet werden."));
+      reader.readAsDataURL(blob);
+    });
+  }
+  function createPdf(data,logoDataUrl){
     if(!window.jspdf?.jsPDF) throw new Error("Die lokal bereitgestellte PDF-Bibliothek konnte nicht geladen werden. Bitte lade die Seite erneut oder nutze „Drucken / PDF speichern“.");
     const doc=new window.jspdf.jsPDF({unit:"mm",format:"a4"});
-    const left=17,right=193,width=176;let y=18;
-    doc.setFont("helvetica","bold");doc.setFontSize(15);doc.text("Förderverein der Nordstadtkita Rinteln e.V.",left,y);y+=7;
-    doc.setFont("helvetica","normal");doc.setFontSize(9);doc.text("Förderverein der Nordstadtkita Rinteln e.V.",left,y);y+=8;
-    doc.setFont("helvetica","bold");doc.setFontSize(13);doc.text("Beitrittserklärung",left,y);y+=9;
+    const left=17,right=193,width=176;let y=40;
+    doc.addImage(logoDataUrl,"JPEG",left,6,25,25);
+    doc.setTextColor(49,91,77);
+    doc.setFont("helvetica","bold");doc.setFontSize(10);doc.text("Förderverein der Nordstadtkita Rinteln e.V.",left+30,12);
+    doc.setFontSize(17);doc.text("Beitrittserklärung",left+30,21);
+    doc.setTextColor(104,118,111);doc.setFont("helvetica","normal");doc.setFontSize(8.5);doc.text("Schön, dass du unsere Kita unterstützen möchtest.",left+30,28);
+    doc.setTextColor(20,30,26);
     const section=(title)=>{if(y>265){doc.addPage();y=18;}doc.setFont("helvetica","bold");doc.setFontSize(10.5);doc.setTextColor(23,61,53);doc.text(title,left,y);y+=6;doc.setTextColor(20,30,26);doc.setFont("helvetica","normal");doc.setFontSize(9.5);};
     const line=(label,val)=>{
       if(y>278){doc.addPage();y=18;}
@@ -644,7 +658,7 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
     doc.setFontSize(8);doc.setFont("helvetica","normal");doc.text("Förderverein der Nordstadtkita Rinteln e.V.",left,Math.min(y,285));
     return doc;
   }
-  function sharePdf(){
+  async function sharePdf(){
     if(!validate())return;
     const btn=document.getElementById("shareBtn");
     const fallback=document.getElementById("emailFallback");
