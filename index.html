@@ -439,6 +439,13 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
     return api;
   }
   document.querySelectorAll(".signature-canvas").forEach(setupCanvas);
+  // Lösch-Schaltflächen beider Unterschriftsfelder mit der jeweiligen Canvas verbinden.
+  document.querySelectorAll("[data-clear]").forEach(button => {
+    button.addEventListener("click", () => {
+      const signature = canvases[button.dataset.clear];
+      if (signature) signature.clear();
+    });
+  });
   let resizeTimer;
   window.addEventListener("resize", () => {
     clearTimeout(resizeTimer);
