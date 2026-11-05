@@ -137,6 +137,9 @@ main{padding-top:22px}
 .card{padding:clamp(19px,4vw,28px);margin-bottom:18px;box-shadow:0 4px 18px rgba(37,67,52,.045)}
 h2{font-size:1.16rem;margin-bottom:17px;letter-spacing:-.015em}
 .intro{font-size:.96rem;line-height:1.55}
+.purpose-box{margin:0 0 20px;padding:16px 18px;background:#edf4ee;border:1px solid #d5e4d8;border-left:5px solid #477965;border-radius:13px;color:#315b4d;font-size:.98rem;font-weight:550;line-height:1.6;box-shadow:0 3px 12px rgba(37,67,52,.045)}
+.purpose-box strong{font-weight:750}
+@media(max-width:560px){.purpose-box{padding:14px 15px;margin-bottom:17px}}
 .grid{column-gap:16px;row-gap:17px}
 label.field-label{font-size:.9rem;margin-bottom:7px}
 input,select{min-height:50px;border:1px solid #c5d2ca;border-radius:10px;padding:12px 13px;transition:border-color .15s,box-shadow .15s}
@@ -202,7 +205,7 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
 <main>
 <form id="membershipForm" novalidate>
   <section class="card">
-    <p class="intro">Mit den Mitgliedsbeiträgen und Spenden unterstützt der Förderverein zusätzliche Anschaffungen, Angebote und besondere Aktionen für die Kinder der Nordstadtkita – und bereichert so ihren Kita-Alltag.</p>
+    <div class="purpose-box">Mit den Mitgliedsbeiträgen und Spenden unterstützt der Förderverein zusätzliche Anschaffungen, Angebote und besondere Aktionen für die Kinder der Nordstadtkita – und bereichert so ihren Kita-Alltag.</div>
     <h2>1. Persönliche Angaben</h2>
     <div class="grid">
       <div class="field"><label class="field-label" for="surname">Name <span class="required">*</span></label><input id="surname" name="surname" autocomplete="family-name" required></div>
