@@ -54,6 +54,16 @@ button:disabled{opacity:.55;cursor:not-allowed}
 .preset-hint{font-size:.78rem;color:var(--muted)}
 .signature-explanation{margin:0 0 9px;line-height:1.5}
 .hidden{display:none!important}
+.signature-reason{margin:0 0 12px;padding:12px 14px;border:1px solid #d5e4d8;border-left:4px solid #477965;border-radius:10px;background:#f2f7f2;color:#315b4d;font-size:.88rem;line-height:1.55}
+.completion-panel{margin-top:16px;padding:18px;border:1px solid #cbded0;border-radius:14px;background:#f3f8f3;color:#263b30}
+.completion-panel>strong{display:block;margin-bottom:6px;color:#315b4d;font-size:1.05rem}
+.completion-steps{display:grid;gap:10px;margin:14px 0 16px;padding:0;list-style:none;counter-reset:finish}
+.completion-steps li{display:grid;grid-template-columns:28px 1fr;gap:10px;align-items:start;line-height:1.5;counter-increment:finish}
+.completion-steps li:before{content:counter(finish);display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:#dcebe0;color:#315b4d;font-weight:750;font-size:.82rem}
+a.email-primary{display:flex;align-items:center;justify-content:center;min-height:54px;padding:13px 16px;border-radius:11px;background:#315b4d;color:#fff;text-align:center;text-decoration:none;font-weight:750;box-shadow:0 3px 9px rgba(49,91,77,.18)}
+a.email-primary:hover{background:#25483c}
+a.email-primary:focus-visible{outline:3px solid #8db9a0;outline-offset:3px}
+.completion-note{margin:11px 0 0;color:#52665a;font-size:.82rem;line-height:1.5}
 @media(max-width:560px){.grid{grid-template-columns:1fr}.field.full{grid-column:auto}.actions{grid-template-columns:1fr}header{padding-top:20px}}
 @media print{
  body{background:#fff;font-size:11pt}
@@ -152,7 +162,8 @@ header .inner{padding-bottom:18px}
 .hero-photo{height:clamp(155px,22vw,225px)}
 .hero-photo img{object-position:center 54%}
 .hero-caption{display:none}
-.sticky-top{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,.97);box-shadow:0 3px 12px rgba(37,67,52,.07);backdrop-filter:saturate(150%) blur(10px);-webkit-backdrop-filter:saturate(150%) blur(10px)}
+.sticky-top{position:relative;z-index:auto;background:transparent;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}
+.progress-shell{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,.97);box-shadow:0 3px 12px rgba(37,67,52,.07);backdrop-filter:saturate(150%) blur(10px);-webkit-backdrop-filter:saturate(150%) blur(10px)}
 .progress-shell{position:relative;background:transparent;border-bottom:1px solid var(--line)}
 .progress-inner{max-width:820px;margin:auto;padding:16px 14px 13px}
 .progress-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:.9rem;margin-bottom:10px}
@@ -221,13 +232,13 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
   </div>
 </div>
 </header>
+</div>
 <div class="progress-shell" aria-label="Formularübersicht">
   <div class="progress-inner">
     <div class="progress-heading"><strong>Dein Mitgliedsantrag</strong><span id="progressLabel">Persönliche Angaben</span></div>
     <div class="progress-track" aria-hidden="true"><span id="progressBar"></span></div>
     <div class="progress-steps" aria-hidden="true"><span class="active"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c.6-3.5 3.1-5.3 7-5.3s6.4 1.8 7 5.3"/></svg>Angaben</span><span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M16.8 8.1c-.9-.8-2-1.2-3.3-1.2-2.7 0-4.7 2.2-5.1 5.1-.4 2.9 1.5 5.1 4.3 5.1 1.6 0 2.9-.6 3.9-1.6M7.2 10.5h7.2M7.2 13.5h6.7"/></svg>Beitrag</span><span><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M7 15h4"/></svg>Lastschrift</span><span><svg viewBox="0 0 24 24"><path d="m4 16.5 10.8-10.8a2.1 2.1 0 0 1 3 3L7 19.5 3.5 20z"/></svg>Unterschrift</span></div>
   </div>
-</div>
 </div>
 <div class="hero-photo" id="heroPhoto" role="img" aria-label="Außenansicht der Nordstadtkita in Rinteln">
   <img src="./Nordstadtkita-Rinteln-1.jpg" alt="Außenansicht der Nordstadtkita in Rinteln">
@@ -304,7 +315,7 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
       <div class="field"><label class="field-label" for="date">Datum <span class="required">*</span></label><input id="date" name="date" type="date" required></div>
     </div>
     <div style="margin-top:17px">
-      <p class="hint signature-explanation">Hiermit bestätigst du deinen Antrag auf Mitgliedschaft. Die separate Unterschrift im vorherigen Abschnitt gilt ausschließlich für das SEPA-Lastschriftmandat.</p>
+      <div class="signature-reason"><strong>Warum gibt es zwei Unterschriften?</strong><br>Mit dieser Unterschrift beantragst du die Mitgliedschaft. Die separate Unterschrift im vorherigen Abschnitt bestätigt ausschließlich das SEPA-Lastschriftmandat und die Ermächtigung zum Einzug des Mitgliedsbeitrags.</div>
       <label class="field-label">Unterschrift Antragsteller/in <span class="required">*</span></label>
       <div class="signature-wrap">
         <div class="signature-top"><strong>Bitte hier unterschreiben</strong><button class="small-btn" type="button" data-clear="memberSignature">Löschen</button></div>
@@ -317,14 +328,20 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
     <h2><svg class="section-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 2.5 2.5L16 9"/></svg><span>Formular abschließen</span></h2>
     <p class="intro">Prüfe deine Angaben und erstelle anschließend das PDF mit deinen Unterschriften. Du kannst den Antrag ausdrucken oder als PDF speichern. Wenn du ihn digital einreichen möchtest, sende das PDF per E-Mail an <a href="mailto:nordstadtkita@rinteln.de">nordstadtkita@rinteln.de</a>. Der Antrag gilt erst als beim Förderverein eingegangen, wenn du ihn tatsächlich übermittelt hast.</p>
     <div class="actions">
-      <button class="primary" type="button" id="shareBtn">PDF erstellen &amp; teilen</button>
+      <button class="primary" type="button" id="shareBtn">PDF erstellen</button>
       <button class="secondary" type="button" id="printBtn">Drucken / PDF speichern</button>
     </div>
     <p class="status" id="status" role="status" aria-live="polite"></p>
-    <div class="notice hidden" id="emailFallback" role="status">
-      <strong>Deine E-Mail ist vorbereitet.</strong><br>
-      Das PDF wurde heruntergeladen. Öffne die vorbereitete Nachricht und füge „Beitrittserklaerung.pdf“ als Anhang hinzu, bevor du sie versendest.
-      <p style="margin:10px 0 0"><a id="emailFallbackLink" href="mailto:nordstadtkita@rinteln.de?subject=Beitrittserkl%C3%A4rung%20F%C3%B6rderverein%20Nordstadtkita">E-Mail an nordstadtkita@rinteln.de öffnen</a></p>
+    <div class="completion-panel hidden" id="emailFallback" role="region" aria-labelledby="completionTitle">
+      <strong id="completionTitle">Dein PDF ist erstellt.</strong>
+      <p style="margin:0">Der Antrag ist noch nicht beim Förderverein eingegangen. Schließe die Einreichung bitte in drei Schritten ab:</p>
+      <ol class="completion-steps">
+        <li><span><b>PDF speichern:</b> Die Datei <b>Beitrittserklaerung.pdf</b> wurde auf dein Gerät heruntergeladen.</span></li>
+        <li><span><b>E-Mail öffnen:</b> Über den folgenden Button öffnest du eine vorbereitete Nachricht an den Förderverein.</span></li>
+        <li><span><b>Anhang hinzufügen und senden:</b> Füge die heruntergeladene PDF-Datei an und sende die E-Mail ab.</span></li>
+      </ol>
+      <a class="email-primary" id="emailFallbackLink" href="mailto:nordstadtkita@rinteln.de?subject=Beitrittserkl%C3%A4rung%20F%C3%B6rderverein%20der%20Nordstadtkita%20Rinteln%20e.V.">E-Mail an nordstadtkita@rinteln.de öffnen</a>
+      <p class="completion-note">Erst nach dem tatsächlichen Versand ist dein Antrag beim Förderverein eingegangen. Das PDF wird nicht automatisch an die E-Mail angehängt.</p>
     </div>
   </section>
 </form>
@@ -541,7 +558,7 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
   let progressTick=false;
   function updateProgress(){
     const stickyTop=document.getElementById("stickyTop");
-    const triggerY=(stickyTop?.getBoundingClientRect().height||0)+36;
+    const triggerY=(document.querySelector(".progress-shell")?.getBoundingClientRect().height||0)+36;
     let activeIndex=0;
     progressSections.forEach((section,index)=>{
       if(section.getBoundingClientRect().top<=triggerY) activeIndex=index;
@@ -626,42 +643,26 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
     doc.setFontSize(8);doc.setFont("helvetica","normal");doc.text("Förderverein der Nordstadtkita Rinteln e.V.",left,Math.min(y,285));
     return doc;
   }
-  async function sharePdf(){
+  function sharePdf(){
     if(!validate())return;
     const btn=document.getElementById("shareBtn");
     const fallback=document.getElementById("emailFallback");
-    const fallbackLink=document.getElementById("emailFallbackLink");
     btn.disabled=true;
     fallback.classList.add("hidden");
     status.classList.remove("error");
     try{
       const data=collected();
       const doc=createPdf(data);
-      const blob=doc.output("blob");
-      const file=new File([blob],"Beitrittserklaerung.pdf",{type:"application/pdf"});
-      const mailSubject="Beitrittserklärung Förderverein der Nordstadtkita Rinteln e.V.";
-      const mailBody="Guten Tag,\n\nanbei sende ich meine ausgefüllte und unterschriebene Beitrittserklärung.\n\nMit freundlichen Grüßen";
-      fallbackLink.href="mailto:nordstadtkita@rinteln.de?subject="+encodeURIComponent(mailSubject)+"&body="+encodeURIComponent(mailBody);
-      if(navigator.share && navigator.canShare && navigator.canShare({files:[file]})){
-        await navigator.share({
-          files:[file],
-          title:mailSubject,
-          text:"Bitte an nordstadtkita@rinteln.de senden.\nBetreff: "+mailSubject
-        });
-        status.textContent="Das PDF wurde an die Teilen-Funktion übergeben. Wähle deine E-Mail-App, prüfe Empfänger und Betreff und bestätige den Versand.";
-      }else{
-        doc.save("Beitrittserklaerung.pdf");
-        status.textContent="Das PDF wurde heruntergeladen. Öffne jetzt die vorbereitete E-Mail und füge das PDF als Anhang hinzu.";
-        fallback.classList.remove("hidden");
-      }
+      doc.save("Beitrittserklaerung.pdf");
+      fallback.classList.remove("hidden");
+      status.textContent="Das PDF wurde erstellt und heruntergeladen. Bitte schließe die Einreichung über die angezeigten drei Schritte ab.";
+      fallback.scrollIntoView({behavior:"smooth",block:"center"});
     }catch(err){
-      if(err.name==="AbortError"){
-        status.textContent="Teilen wurde abgebrochen. Du kannst den Vorgang erneut starten oder das PDF über „Drucken / PDF speichern“ sichern.";
-      }else{
-        status.textContent=err.message||"Das PDF konnte nicht erstellt werden.";
-        status.classList.add("error");
-      }
-    }finally{btn.disabled=false;}
+      status.textContent=err.message||"Das PDF konnte nicht erstellt werden.";
+      status.classList.add("error");
+    }finally{
+      btn.disabled=false;
+    }
   }
   document.getElementById("shareBtn").addEventListener("click",sharePdf);
   document.getElementById("printBtn").addEventListener("click",()=>{
