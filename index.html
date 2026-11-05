@@ -464,18 +464,31 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
   const progressBar=document.getElementById("progressBar");
   const progressLabel=document.getElementById("progressLabel");
   const progressItems=[...document.querySelectorAll(".progress-steps span")];
-  if("IntersectionObserver" in window){
-    const observer=new IntersectionObserver(entries=>{
-      const visible=entries.filter(e=>e.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];
-      if(!visible)return;
-      const index=progressSections.indexOf(visible.target);
-      if(index<0)return;
-      progressBar.style.width=((index+1)*20)+"%";
-      progressLabel.textContent=progressNames[index];
-      progressItems.forEach((item,i)=>item.classList.toggle("active",i===index));
-    },{rootMargin:"-18% 0px -62% 0px",threshold:[0,.15,.4]});
-    progressSections.forEach(section=>observer.observe(section));
+  // Ein fester Bezugspunkt unterhalb des Sticky-Headers verhindert wechselnde
+  // IntersectionObserver-Treffer und damit Flackern an Abschnittsgrenzen.
+  let progressTick=false;
+  function updateProgress(){
+    const stickyTop=document.getElementById("stickyTop");
+    const triggerY=(stickyTop?.getBoundingClientRect().height||0)+36;
+    let activeIndex=0;
+    progressSections.forEach((section,index)=>{
+      if(section.getBoundingClientRect().top<=triggerY) activeIndex=index;
+    });
+    progressBar.style.width=((activeIndex+1)*20)+"%";
+    progressLabel.textContent=progressNames[activeIndex];
+    progressItems.forEach((item,index)=>item.classList.toggle("active",index===activeIndex));
+    progressTick=false;
   }
+  function scheduleProgressUpdate(){
+    if(!progressTick){
+      window.requestAnimationFrame(updateProgress);
+      progressTick=true;
+    }
+  }
+  window.addEventListener("scroll",scheduleProgressUpdate,{passive:true});
+  window.addEventListener("resize",scheduleProgressUpdate);
+  window.addEventListener("load",scheduleProgressUpdate);
+  updateProgress();
 
   function value(id){return (document.getElementById(id)?.value||"").trim();}
   function validate(){
