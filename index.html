@@ -218,7 +218,7 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
 </div>
 </div>
 <div class="hero-photo" id="heroPhoto" role="img" aria-label="Außenansicht der Nordstadtkita in Rinteln">
-  <img src="https://www.rinteln.de/assets/1-Relaunch-2019/Leben-in-Rinteln/Kinder-und-Jugend/Kitas-staedtisch/_resampled/CroppedFocusedImageWzU3MCwzODAsIngiLDBd/Nordstadtkita-Rinteln-4.jpg" alt="Außenansicht der Nordstadtkita in Rinteln">
+  <img src="./Nordstadtkita-Rinteln-1.jpg" alt="Außenansicht der Nordstadtkita in Rinteln">
   <div class="hero-caption">Nordstadtkita · Rinteln</div>
 </div>
 <main>
@@ -570,7 +570,7 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
     return y;
   }
   function createPdf(data){
-    if(!window.jspdf?.jsPDF) throw new Error("Die PDF-Bibliothek konnte nicht geladen werden. Bitte prüfe deine Internetverbindung oder nutze „Drucken / PDF speichern“.");
+    if(!window.jspdf?.jsPDF) throw new Error("Die lokal bereitgestellte PDF-Bibliothek konnte nicht geladen werden. Bitte lade die Seite erneut oder nutze „Drucken / PDF speichern“.");
     const doc=new window.jspdf.jsPDF({unit:"mm",format:"a4"});
     const left=17,right=193,width=176;let y=18;
     doc.setFont("helvetica","bold");doc.setFontSize(15);doc.text("Förderverein Nordstadtkita",left,y);y+=7;
