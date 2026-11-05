@@ -155,6 +155,7 @@ header .inner{padding-bottom:18px}
 main{padding-top:22px}
 .card{padding:clamp(19px,4vw,28px);margin-bottom:18px;box-shadow:0 4px 18px rgba(37,67,52,.045)}
 h2{font-size:1.16rem;margin-bottom:17px;letter-spacing:-.015em}
+.section-icon{width:22px;height:22px;flex:0 0 22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;color:#477965}.progress-steps span{display:flex;align-items:center;gap:4px}.progress-steps svg{width:13px;height:13px;flex:0 0 13px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}h2:before{flex:0 0 5px}
 .intro{font-size:.96rem;line-height:1.55}
 .purpose-box{margin:0 0 20px;padding:16px 18px;background:#edf4ee;border:1px solid #d5e4d8;border-left:5px solid #477965;border-radius:13px;color:#315b4d;font-size:.98rem;font-weight:550;line-height:1.6;box-shadow:0 3px 12px rgba(37,67,52,.045)}
 .purpose-box strong{font-weight:750}
@@ -213,7 +214,7 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
   <div class="progress-inner">
     <div class="progress-heading"><strong>Dein Mitgliedsantrag</strong><span id="progressLabel">Persönliche Angaben</span></div>
     <div class="progress-track" aria-hidden="true"><span id="progressBar"></span></div>
-    <div class="progress-steps" aria-hidden="true"><span class="active">Angaben</span><span>Beitrag</span><span>Lastschrift</span><span>Unterschrift</span></div>
+    <div class="progress-steps" aria-hidden="true"><span class="active"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c.6-3.5 3.1-5.3 7-5.3s6.4 1.8 7 5.3"/></svg>Angaben</span><span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 6v12m4-9c-.8-.8-1.8-1.2-3.2-1.2-1.7 0-2.8.8-2.8 2s1 1.8 2.8 2.2 2.8 1 2.8 2.3-1.2 2.2-3 2.2"/></svg>Beitrag</span><span><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M7 15h4"/></svg>Lastschrift</span><span><svg viewBox="0 0 24 24"><path d="m4 16.5 10.8-10.8a2.1 2.1 0 0 1 3 3L7 19.5 3.5 20z"/></svg>Unterschrift</span></div>
   </div>
 </div>
 </div>
@@ -225,7 +226,7 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
 <form id="membershipForm" novalidate>
     <div class="purpose-box">Werde Mitglied im Förderverein und unterstütze zusätzliche Anschaffungen, Angebote und besondere Aktionen für die Kinder der Nordstadtkita.<br><span class="form-time">Das Ausfüllen deines Mitgliedsantrags dauert etwa 3 Minuten – inklusive Unterschrift direkt auf dem Bildschirm.</span></div>
   <section class="card">
-    <h2>1. Persönliche Angaben</h2>
+    <h2><svg class="section-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c.6-3.5 3.1-5.3 7-5.3s6.4 1.8 7 5.3"/></svg><span>1. Persönliche Angaben</span></h2>
     <div class="grid">
       <div class="field"><label class="field-label" for="givenName">Vorname <span class="required">*</span></label><input id="givenName" name="givenName" autocomplete="given-name" required></div>
       <div class="field"><label class="field-label" for="surname">Nachname <span class="required">*</span></label><input id="surname" name="surname" autocomplete="family-name" required></div>
@@ -237,7 +238,7 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
   </section>
 
   <section class="card contribution-card">
-    <h2>2. Mitgliedsbeitrag</h2>
+    <h2><svg class="section-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5c-.8-.8-1.8-1.2-3.2-1.2-1.7 0-2.8.8-2.8 2s1 1.8 2.8 2.2 2.8 1 2.8 2.3-1.2 2.2-3 2.2c-1.3 0-2.5-.5-3.4-1.4M12 5.5v13"/></svg><span>2. Mitgliedsbeitrag</span></h2>
     <p class="intro">Mit deinem Jahresbeitrag unterstützt du die Arbeit des Fördervereins. Der Beitrag beträgt mindestens 18 € pro Jahr; einen höheren Betrag kannst du frei wählen.</p>
     <div class="contribution-panel">
       <label class="field-label" for="contribution">Dein jährlicher Mitgliedsbeitrag <span class="required">*</span></label>
@@ -254,7 +255,7 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
   </section>
 
   <section class="card" id="sepaSection">
-    <h2>3. SEPA-Lastschriftmandat</h2>
+    <h2><svg class="section-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M7 15h4"/></svg><span>3. SEPA-Lastschriftmandat</span></h2>
     <p class="intro">Der Mitgliedsbeitrag wird ausschließlich per SEPA-Lastschrift eingezogen. Bitte erteile dazu das folgende Lastschriftmandat und gib deine Kontodaten an.</p>
     <div class="notice">
       <strong>Förderverein der Kindertagesstätte Rinteln e.V.</strong><br>
@@ -285,7 +286,7 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
   </section>
 
   <section class="card">
-    <h2>4. Ort, Datum und Unterschrift</h2>
+    <h2><svg class="section-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 16.5 10.8-10.8a2.1 2.1 0 0 1 3 3L7 19.5 3.5 20z"/><path d="m13.5 7.5 3 3"/></svg><span>4. Ort, Datum und Unterschrift</span></h2>
     <div class="grid">
       <div class="field"><label class="field-label" for="place">Ort <span class="required">*</span></label><input id="place" name="place" autocomplete="address-level2" required></div>
       <div class="field"><label class="field-label" for="date">Datum <span class="required">*</span></label><input id="date" name="date" type="date" required></div>
@@ -301,7 +302,7 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
   </section>
 
   <section class="card">
-    <h2>Formular abschließen</h2>
+    <h2><svg class="section-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 2.5 2.5L16 9"/></svg><span>Formular abschließen</span></h2>
     <p class="intro">Prüfe deine Angaben und erstelle anschließend das PDF mit deinen Unterschriften. Du kannst den Antrag ausdrucken oder als PDF speichern. Wenn du ihn digital einreichen möchtest, sende das PDF per E-Mail an <a href="mailto:nordstadtkita@rinteln.de">nordstadtkita@rinteln.de</a>. Der Antrag gilt erst als beim Förderverein eingegangen, wenn du ihn tatsächlich übermittelt hast.</p>
     <div class="actions">
       <button class="primary" type="button" id="shareBtn">PDF erstellen &amp; teilen</button>
@@ -317,7 +318,7 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
 </form>
 
   <section class="card">
-    <h2>4. Datenschutz und Information</h2>
+    <h2><svg class="section-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 19 6v5c0 4.7-2.8 8-7 10-4.2-2-7-5.3-7-10V6z"/><path d="m9 12 2 2 4-4"/></svg><span>Datenschutz und Information</span></h2>
     <p>Der Schutz deiner personenbezogenen Daten ist uns wichtig. Informationen zur Verarbeitung im Zusammenhang mit dieser Website und der Beitrittserklärung findest du in unserer <a href="./datenschutz.html" target="_blank" rel="noopener noreferrer">gesonderten Datenschutzerklärung</a>.</p>
     <div class="notice">
       <strong>Was passiert mit deinen Angaben?</strong><br>
