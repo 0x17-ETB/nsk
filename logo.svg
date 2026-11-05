@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+<rect width="400" height="400" fill="#fff"/>
+<g>
+<path d="M115 176 C91 154 52 98 75 67 C96 39 135 105 148 143 C157 169 145 188 115 176Z" fill="#ff101b"/>
+<path d="M165 151 C149 111 143 35 158 20 C179 0 198 78 194 120 C192 149 180 163 165 151Z" fill="#8200d8"/>
+<path d="M225 144 C212 113 220 53 241 27 C260 4 267 53 257 100 C250 132 238 151 225 144Z" fill="#59ef00"/>
+<path d="M299 218 C286 205 311 165 335 144 C366 117 372 143 352 177 C333 208 312 228 299 218Z" fill="#2877f5"/>
+<path d="M116 211 C94 218 54 197 34 174 C15 151 37 133 70 151 C102 168 130 195 116 211Z" fill="#ff7900"/>
+<path d="M118 225 C135 173 197 151 250 159 C292 165 296 224 275 264 C248 315 166 314 130 282 C114 268 111 246 118 225Z" fill="#fff000"/>
+</g>
+<text x="200" y="373" text-anchor="middle" fill="#ff7900" font-family="cursive" font-size="54" font-weight="400" letter-spacing="-2">Nordstadtkita</text>
+</svg>
