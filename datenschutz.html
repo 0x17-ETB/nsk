@@ -65,10 +65,10 @@ hr{border:0;border-top:1px solid var(--line);margin:22px 0}
   <p>Auf der Formularseite werden derzeit zwei Dateien von externen Anbietern geladen:</p>
   <ul>
     <li><strong>Foto der Nordstadtkita:</strong> Das Bild wird von einem Server der Stadt Rinteln (rinteln.de) abgerufen.</li>
-    <li><strong>PDF-Bibliothek jsPDF:</strong> Die JavaScript-Bibliothek für die PDF-Erstellung wird von cdnjs.cloudflare.com geladen.</li>
+    <li><strong>PDF-Bibliothek jsPDF:</strong> Die JavaScript-Bibliothek für die PDF-Erstellung wird direkt von dieser Website geladen und lokal bereitgestellt.</li>
   </ul>
-  <p>Beim Abruf dieser Dateien wird jeweils eine Verbindung zum betreffenden Anbieter hergestellt. Dabei werden technisch notwendige Verbindungsdaten, insbesondere die IP-Adresse und Angaben zur angeforderten Datei, übermittelt. Die Anbieter erhalten durch diesen Abruf nach der technischen Funktionsweise des Formulars nicht die eingegebenen Formularwerte, IBAN-Daten oder Unterschriften. Das PDF wird im Browser auf deinem Endgerät erzeugt.</p>
-  <p>Die Einbindung externer Inhalte und die dafür geltende Rechtsgrundlage muss der Verein vor Veröffentlichung prüfen. Weitere Informationen findest du in den Datenschutzhinweisen der <a href="https://www.rinteln.de/datenschutz/" target="_blank" rel="noopener noreferrer">Stadt Rinteln</a> sowie von <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener noreferrer">Cloudflare</a>.</p>
+  <p>Beim Abruf des Kita-Fotos wird eine Verbindung zum Server der Stadt Rinteln hergestellt. Die PDF-Bibliothek wird dagegen vom selben Webserver wie diese Website geladen; hierfür entsteht keine zusätzliche Verbindung zu cdnjs oder Cloudflare. Die Anbieter des Fotos erhalten durch den Bildabruf keine eingegebenen Formularwerte, IBAN-Daten oder Unterschriften. Das PDF wird im Browser auf deinem Endgerät erzeugt.</p>
+  <p>Die Einbindung des externen Kita-Fotos und die dafür geltende Rechtsgrundlage muss der Verein vor Veröffentlichung prüfen. Weitere Informationen zur Datenverarbeitung durch die Stadt Rinteln findest du in deren <a href="https://www.rinteln.de/datenschutz/" target="_blank" rel="noopener noreferrer">Datenschutzhinweisen</a>.</p>
 
   <h2>4. Eingaben in der Beitrittserklärung – lokale Verarbeitung</h2>
   <p>Das Formular kann folgende Angaben enthalten: Vor- und Nachname, Anschrift, E-Mail-Adresse, Beitragshöhe, IBAN sowie gegebenenfalls BIC und Kreditinstitut, Kontoinhaber/in, Ort und Datum sowie die beiden Unterschriften für den Beitritt und das SEPA-Lastschriftmandat.</p>
