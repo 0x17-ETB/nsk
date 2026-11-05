@@ -24,6 +24,8 @@ h2{font-size:1.12rem;margin:0 0 16px;color:var(--green)}
 .field.full{grid-column:1/-1}
 label.field-label{display:block;font-weight:650;font-size:.92rem;margin:0 0 6px}
 input,select{width:100%;min-height:48px;border:1px solid #bac8c1;border-radius:10px;padding:11px 12px;font:inherit;background:#fff;color:var(--ink)}
+/* iOS Safari gibt Datumsfeldern teils eine intrinsische Mindestbreite. */
+input[type="date"]{display:block;width:100%;min-width:0;max-width:100%;box-sizing:border-box}
 input:focus,select:focus,button:focus-visible,.signature-canvas:focus{outline:3px solid #8bb9a8;outline-offset:2px}
 input[type=checkbox]{width:22px;height:22px;min-height:22px;accent-color:var(--green);flex:0 0 auto}
 .checkline{display:flex;align-items:flex-start;gap:11px;margin:13px 0}
