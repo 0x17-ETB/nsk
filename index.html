@@ -213,7 +213,7 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
   <div class="progress-inner">
     <div class="progress-heading"><strong>Dein Mitgliedsantrag</strong><span id="progressLabel">Persönliche Angaben</span></div>
     <div class="progress-track" aria-hidden="true"><span id="progressBar"></span></div>
-    <div class="progress-steps" aria-hidden="true"><span class="active">Angaben</span><span>Beitrag</span><span>Lastschrift</span><span>Datenschutz</span><span>Unterschrift</span></div>
+    <div class="progress-steps" aria-hidden="true"><span class="active">Angaben</span><span>Beitrag</span><span>Lastschrift</span><span>Unterschrift</span></div>
   </div>
 </div>
 </div>
@@ -285,18 +285,7 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
   </section>
 
   <section class="card">
-    <h2>4. Datenschutz und Information</h2>
-    <p>Der Schutz deiner personenbezogenen Daten ist uns wichtig. Informationen zur Verarbeitung im Zusammenhang mit dieser Website und der Beitrittserklärung findest du in unserer <a href="./datenschutz.html" target="_blank" rel="noopener noreferrer">gesonderten Datenschutzerklärung</a>.</p>
-    <div class="notice">
-      <strong>Was passiert mit deinen Angaben?</strong><br>
-      Deine Eingaben und Unterschriften werden direkt in deinem Browser verarbeitet. Das PDF wird lokal auf deinem Gerät erstellt. Dieses Formular überträgt und speichert die eingegebenen Mitglieds- und Bankdaten nicht auf dem Webserver.<br><br>
-      Erst wenn du das PDF aktiv über die Teilen-Funktion versendest oder anderweitig weitergibst, gelangen die darin enthaltenen Angaben an die von dir ausgewählten Empfänger bzw. Dienste. Beim Speichern entscheidest du selbst über den Ablageort.
-    </div>
-    <p class="hint">Für die Auslieferung der Website und einzelner externer Inhalte werden technische Verbindungsdaten verarbeitet. Welche Anbieter dabei eingebunden sind und welche Daten betroffen sein können, erläutert die Datenschutzerklärung.</p>
-  </section>
-
-  <section class="card">
-    <h2>5. Ort, Datum und Unterschrift</h2>
+    <h2>4. Ort, Datum und Unterschrift</h2>
     <div class="grid">
       <div class="field"><label class="field-label" for="place">Ort <span class="required">*</span></label><input id="place" name="place" autocomplete="address-level2" required></div>
       <div class="field"><label class="field-label" for="date">Datum <span class="required">*</span></label><input id="date" name="date" type="date" required></div>
@@ -326,6 +315,17 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
     </div>
   </section>
 </form>
+
+  <section class="card">
+    <h2>4. Datenschutz und Information</h2>
+    <p>Der Schutz deiner personenbezogenen Daten ist uns wichtig. Informationen zur Verarbeitung im Zusammenhang mit dieser Website und der Beitrittserklärung findest du in unserer <a href="./datenschutz.html" target="_blank" rel="noopener noreferrer">gesonderten Datenschutzerklärung</a>.</p>
+    <div class="notice">
+      <strong>Was passiert mit deinen Angaben?</strong><br>
+      Deine Eingaben und Unterschriften werden direkt in deinem Browser verarbeitet. Das PDF wird lokal auf deinem Gerät erstellt. Dieses Formular überträgt und speichert die eingegebenen Mitglieds- und Bankdaten nicht auf dem Webserver.<br><br>
+      Erst wenn du das PDF aktiv über die Teilen-Funktion versendest oder anderweitig weitergibst, gelangen die darin enthaltenen Angaben an die von dir ausgewählten Empfänger bzw. Dienste. Beim Speichern entscheidest du selbst über den Ablageort.
+    </div>
+    <p class="hint">Für die Auslieferung der Website und einzelner externer Inhalte werden technische Verbindungsdaten verarbeitet. Welche Anbieter dabei eingebunden sind und welche Daten betroffen sein können, erläutert die Datenschutzerklärung.</p>
+  </section>
 </main>
 <div class="footer">Förderverein der Kindertagesstätte Rinteln e.V. · <a href="./datenschutz.html">Datenschutzerklärung</a> · Bitte prüfe deine Angaben vor dem Erstellen des PDFs. <span class="required">* Pflichtfelder</span></div>
 
@@ -517,8 +517,8 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
   updateHeroFade();
 
   // Fortschrittsanzeige folgt dem zuletzt erreichten Formularabschnitt.
-  const progressSections=[...document.querySelectorAll("form#membershipForm > .card")].slice(0,5);
-  const progressNames=["Persönliche Angaben","Mitgliedsbeitrag","SEPA-Lastschrift","Datenschutz","Unterschrift"];
+  const progressSections=[...document.querySelectorAll("form#membershipForm > .card")].slice(0,4);
+  const progressNames=["Persönliche Angaben","Mitgliedsbeitrag","SEPA-Lastschrift","Unterschrift"];
   const progressBar=document.getElementById("progressBar");
   const progressLabel=document.getElementById("progressLabel");
   const progressItems=[...document.querySelectorAll(".progress-steps span")];
@@ -532,7 +532,7 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
     progressSections.forEach((section,index)=>{
       if(section.getBoundingClientRect().top<=triggerY) activeIndex=index;
     });
-    progressBar.style.width=((activeIndex+1)*20)+"%";
+    progressBar.style.width=((activeIndex+1)*25)+"%";
     progressLabel.textContent=progressNames[activeIndex];
     progressItems.forEach((item,index)=>item.classList.toggle("active",index===activeIndex));
     progressTick=false;
@@ -605,11 +605,7 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
       doc.setFont("helvetica","bold");doc.text("Unterschrift Kontoinhaber/in:",left,y);y+=2;
       if(data.sepaSig){doc.addImage(data.sepaSig,"PNG",left+60,y-5,65,17);}y+=16;
     }
-    y+=2;section("4. Datenschutz und Information");
-    y=addWrapped(doc,"Die personenbezogenen Daten werden zur Mitgliederverwaltung und Durchführung der Mitgliedschaft unter Beachtung der geltenden Datenschutzbestimmungen verarbeitet.",left,y,width,4.7);
-    y+=1;y=addWrapped(doc,"Deine Eingaben und Unterschriften werden direkt in deinem Browser verarbeitet. Das PDF wird lokal auf deinem Gerät erstellt. Eine automatische Übermittlung der Formulardaten an einen Server oder den Förderverein findet nicht statt; das Formular speichert die Daten nicht online.",left,y,width,4.7);
-    y+=1;y=addWrapped(doc,"Erst wenn du das PDF aktiv über die Teilen-Funktion versendest, gibst du die darin enthaltenen Daten an die ausgewählten Empfänger bzw. Dienste weiter. Beim Drucken oder Speichern entscheidest du selbst über den Ablageort.",left,y,width,4.7);
-    y+=2;section("5. Ort, Datum und Unterschrift");line("Ort, Datum:",data.place+", "+data.date);
+    y+=2;section("4. Ort, Datum und Unterschrift");line("Ort, Datum:",data.place+", "+data.date);
     if(y>258){doc.addPage();y=18;}
     doc.setFont("helvetica","bold");doc.text("Unterschrift Antragsteller/in:",left,y);y+=2;
     if(data.memberSig){doc.addImage(data.memberSig,"PNG",left+60,y-5,65,17);}y+=17;
