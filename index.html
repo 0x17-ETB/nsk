@@ -320,6 +320,11 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
       <button class="secondary" type="button" id="printBtn">Drucken / PDF speichern</button>
     </div>
     <p class="status" id="status" role="status" aria-live="polite"></p>
+    <div class="notice hidden" id="emailFallback" role="status">
+      <strong>Deine E-Mail ist vorbereitet.</strong><br>
+      Das PDF wurde heruntergeladen. Öffne die vorbereitete Nachricht und füge „Beitrittserklaerung.pdf“ als Anhang hinzu, bevor du sie versendest.
+      <p style="margin:10px 0 0"><a id="emailFallbackLink" href="mailto:nordstadtkita@rinteln.de?subject=Beitrittserkl%C3%A4rung%20F%C3%B6rderverein%20Nordstadtkita">E-Mail an nordstadtkita@rinteln.de öffnen</a></p>
+    </div>
   </section>
 </form>
 </main>
@@ -614,20 +619,39 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
   }
   async function sharePdf(){
     if(!validate())return;
-    const btn=document.getElementById("shareBtn");btn.disabled=true;
+    const btn=document.getElementById("shareBtn");
+    const fallback=document.getElementById("emailFallback");
+    const fallbackLink=document.getElementById("emailFallbackLink");
+    btn.disabled=true;
+    fallback.classList.add("hidden");
+    status.classList.remove("error");
     try{
-      const data=collected();const doc=createPdf(data);const blob=doc.output("blob");
+      const data=collected();
+      const doc=createPdf(data);
+      const blob=doc.output("blob");
       const file=new File([blob],"Beitrittserklaerung.pdf",{type:"application/pdf"});
-      if(navigator.canShare && navigator.canShare({files:[file]}) && navigator.share){
-        await navigator.share({files:[file],title:"Beitrittserklärung Förderverein Nordstadtkita",text:"Ausgefüllte und unterschriebene Beitrittserklärung."});
-        status.textContent="Das PDF wurde an die Teilen-Funktion übergeben. Bitte wähle deine E-Mail-App und bestätige den Versand.";
+      const mailSubject="Beitrittserklärung Förderverein Nordstadtkita";
+      const mailBody="Guten Tag,\n\nanbei sende ich meine ausgefüllte und unterschriebene Beitrittserklärung.\n\nMit freundlichen Grüßen";
+      fallbackLink.href="mailto:nordstadtkita@rinteln.de?subject="+encodeURIComponent(mailSubject)+"&body="+encodeURIComponent(mailBody);
+      if(navigator.share && navigator.canShare && navigator.canShare({files:[file]})){
+        await navigator.share({
+          files:[file],
+          title:mailSubject,
+          text:"Bitte an nordstadtkita@rinteln.de senden.\nBetreff: "+mailSubject
+        });
+        status.textContent="Das PDF wurde an die Teilen-Funktion übergeben. Wähle deine E-Mail-App, prüfe Empfänger und Betreff und bestätige den Versand.";
       }else{
         doc.save("Beitrittserklaerung.pdf");
-        status.textContent="Dein Gerät unterstützt das direkte Teilen von PDF-Dateien nicht. Das PDF wurde heruntergeladen. Du kannst es nun an deine E-Mail anhängen.";
+        status.textContent="Das PDF wurde heruntergeladen. Öffne jetzt die vorbereitete E-Mail und füge das PDF als Anhang hinzu.";
+        fallback.classList.remove("hidden");
       }
     }catch(err){
-      if(err.name==="AbortError"){status.textContent="Teilen wurde abgebrochen.";}
-      else{status.textContent=err.message||"Das PDF konnte nicht erstellt werden.";status.classList.add("error");}
+      if(err.name==="AbortError"){
+        status.textContent="Teilen wurde abgebrochen. Du kannst den Vorgang erneut starten oder das PDF über „Drucken / PDF speichern“ sichern.";
+      }else{
+        status.textContent=err.message||"Das PDF konnte nicht erstellt werden.";
+        status.classList.add("error");
+      }
     }finally{btn.disabled=false;}
   }
   document.getElementById("shareBtn").addEventListener("click",sharePdf);
