@@ -223,7 +223,7 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
 </div>
 <main>
 <form id="membershipForm" novalidate>
-    <div class="purpose-box">Werde Mitglied im Förderverein und unterstütze zusätzliche Anschaffungen, Angebote und besondere Aktionen für die Kinder der Nordstadtkita.<br><span class="form-time">Dein Beitritt ist in etwa 3 Minuten erledigt – inklusive Unterschrift direkt auf dem Bildschirm.</span></div>
+    <div class="purpose-box">Werde Mitglied im Förderverein und unterstütze zusätzliche Anschaffungen, Angebote und besondere Aktionen für die Kinder der Nordstadtkita.<br><span class="form-time">Das Ausfüllen deines Mitgliedsantrags dauert etwa 3 Minuten – inklusive Unterschrift direkt auf dem Bildschirm.</span></div>
   <section class="card">
     <h2>1. Persönliche Angaben</h2>
     <div class="grid">
@@ -238,7 +238,7 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
 
   <section class="card contribution-card">
     <h2>2. Mitgliedsbeitrag</h2>
-    <p class="intro">Mit deinem Jahresbeitrag unterstützt du die Arbeit des Fördervereins. Die Beitragshöhe kannst du selbst festlegen.</p>
+    <p class="intro">Mit deinem Jahresbeitrag unterstützt du die Arbeit des Fördervereins. Der Beitrag beträgt mindestens 18 € pro Jahr; einen höheren Betrag kannst du frei wählen.</p>
     <div class="contribution-panel">
       <label class="field-label" for="contribution">Dein jährlicher Mitgliedsbeitrag <span class="required">*</span></label>
       <div class="amount-presets" role="group" aria-label="Beitrag auswählen"><button type="button" class="amount-preset" data-amount="18">18 €</button><button type="button" class="amount-preset" data-amount="30">30 €</button><button type="button" class="amount-preset" data-amount="50">50 €</button><span class="preset-hint">oder eigenen Betrag eingeben</span></div>
@@ -268,13 +268,13 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
     <div class="sepa-fields" id="sepaFields">
       <div class="notice">Hinweis: Du kannst innerhalb von acht Wochen ab dem Belastungsdatum die Erstattung des belasteten Betrags verlangen.</div>
       <div class="grid" style="margin-top:14px">
-        <div class="field full"><label class="field-label" for="iban">IBAN <span class="required">*</span></label><input id="iban" name="iban" autocomplete="off" autocapitalize="characters" spellcheck="false" inputmode="text" placeholder="DE00 0000 0000 0000 0000 00" aria-describedby="ibanHint" required><p class="hint" id="ibanHint">Deine IBAN findest du beispielsweise auf deiner Bankkarte oder im Onlinebanking.</p></div>
-        <div class="field"><label class="field-label" for="bic">BIC</label><input id="bic" name="bic" autocomplete="off" autocapitalize="characters" spellcheck="false"></div>
-        <div class="field"><label class="field-label" for="bank">Kreditinstitut</label><input id="bank" name="bank" autocomplete="off"></div>
+        <div class="field full"><label class="field-label" for="iban">IBAN <span class="required">*</span></label><input id="iban" name="iban" autocomplete="off" autocapitalize="characters" spellcheck="false" inputmode="text" placeholder="DE00 0000 0000 0000 0000 00" aria-describedby="ibanHint" required><p class="hint" id="ibanHint">Deine IBAN findest du beispielsweise auf deinem Kontoauszug oder im Onlinebanking.</p></div>
+        <div class="field"><label class="field-label" for="bic">BIC <span class="hint">(optional)</span></label><input id="bic" name="bic" autocomplete="off" autocapitalize="characters" spellcheck="false"></div>
+        <div class="field"><label class="field-label" for="bank">Kreditinstitut <span class="hint">(optional)</span></label><input id="bank" name="bank" autocomplete="off"></div>
         <div class="field full"><label class="field-label" for="accountHolder">Kontoinhaber/in <span class="required">*</span></label><input id="accountHolder" name="accountHolder" autocomplete="name" required></div>
       </div>
       <div style="margin-top:15px">
-        <p class="hint signature-explanation">Diese Unterschrift autorisiert den Einzug des Mitgliedsbeitrags vom angegebenen Konto. Sie ist daher unabhängig von der Unterschrift unter dem Mitgliedsantrag erforderlich.</p>
+        <p class="hint signature-explanation">Mit dieser Unterschrift erteilst du das SEPA-Lastschriftmandat für den Einzug des Mitgliedsbeitrags. Sie ist zusätzlich zur Unterschrift unter dem Mitgliedsantrag erforderlich.</p>
         <label class="field-label">Unterschrift Kontoinhaber/in <span class="required">*</span></label>
         <div class="signature-wrap">
           <div class="signature-top"><strong>Bitte hier unterschreiben</strong><button class="small-btn" type="button" data-clear="sepaSignature">Löschen</button></div>
@@ -308,13 +308,12 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
         <div class="signature-top"><strong>Bitte hier unterschreiben</strong><button class="small-btn" type="button" data-clear="memberSignature">Löschen</button></div>
         <canvas class="signature-canvas" id="memberSignature" aria-label="Unterschrift Antragsteller"></canvas>
       </div>
-      <p class="hint">Mit deiner Unterschrift bestätigst du deinen Antrag auf Mitgliedschaft.</p>
     </div>
   </section>
 
   <section class="card">
     <h2>Formular abschließen</h2>
-    <p class="intro">Prüfe deine Angaben und erstelle anschließend das unterschriebene PDF. Du kannst den Antrag ausdrucken oder als PDF speichern und digital per E-Mail an <a href="mailto:nordstadtkita@rinteln.de">nordstadtkita@rinteln.de</a> senden. Füge das PDF dazu als E-Mail-Anhang hinzu. Der Antrag gilt erst als beim Förderverein eingegangen, wenn du ihn tatsächlich übermittelt hast.</p>
+    <p class="intro">Prüfe deine Angaben und erstelle anschließend das PDF mit deinen Unterschriften. Du kannst den Antrag ausdrucken oder als PDF speichern. Wenn du ihn digital einreichen möchtest, sende das PDF per E-Mail an <a href="mailto:nordstadtkita@rinteln.de">nordstadtkita@rinteln.de</a>. Der Antrag gilt erst als beim Förderverein eingegangen, wenn du ihn tatsächlich übermittelt hast.</p>
     <div class="actions">
       <button class="primary" type="button" id="shareBtn">PDF erstellen &amp; teilen</button>
       <button class="secondary" type="button" id="printBtn">Drucken / PDF speichern</button>
