@@ -669,7 +669,8 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
     status.classList.remove("error");
     try{
       const data=collected();
-      const doc=createPdf(data);
+      const logoDataUrl=await loadLogoDataUrl();
+      const doc=createPdf(data,logoDataUrl);
       doc.save("Beitrittserklaerung.pdf");
       fallback.classList.remove("hidden");
       status.textContent="Das PDF wurde erstellt und heruntergeladen. Bitte schließe die Einreichung über die angezeigten drei Schritte ab.";
