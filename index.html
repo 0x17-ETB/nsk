@@ -239,7 +239,7 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
   <div class="progress-inner">
     <div class="progress-heading"><strong>Dein Mitgliedsantrag</strong><span id="progressLabel" aria-live="polite">Persönliche Angaben</span></div>
     <div class="progress-track" aria-hidden="true"><span id="progressBar"></span></div>
-    <div class="progress-steps" aria-hidden="true"><span class="active"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c.6-3.5 3.1-5.3 7-5.3s6.4 1.8 7 5.3"/></svg>Angaben</span><span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M16.8 8.1c-.9-.8-2-1.2-3.3-1.2-2.7 0-4.7 2.2-5.1 5.1-.4 2.9 1.5 5.1 4.3 5.1 1.6 0 2.9-.6 3.9-1.6M7.2 10.5h7.2M7.2 13.5h6.7"/></svg>Beitrag</span><span><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M7 15h4"/></svg>Lastschrift</span><span><svg viewBox="0 0 24 24"><path d="m4 16.5 10.8-10.8a2.1 2.1 0 0 1 3 3L7 19.5 3.5 20z"/></svg>Unterschrift</span></div>
+    <div class="progress-steps" aria-hidden="true"><span class="active">Angaben</span><span>Beitrag</span><span>Mitgliedsantrag</span><span>SEPA</span></div>
   </div>
 </div>
 <div class="hero-photo" id="heroPhoto" role="img" aria-label="Außenansicht der Nordstadtkita in Rinteln">
@@ -279,51 +279,39 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
     </div>
   </section>
 
-  <section class="card" id="sepaSection">
-    <h2><svg class="section-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M7 15h4"/></svg><span>SEPA-Lastschriftmandat</span></h2>
-    <p class="intro">Der Mitgliedsbeitrag wird ausschließlich per SEPA-Lastschrift eingezogen. Bitte erteile dazu das folgende Lastschriftmandat und gib deine Kontodaten an.</p>
-    <div class="notice">
-      <strong>Förderverein der Nordstadtkita Rinteln e.V.</strong><br>
-      Gläubiger-Identifikationsnummer: <strong>DE92ZZZ00001253396</strong><br>
-      Mandatsreferenz: wird separat mitgeteilt (Mitgliedsnummer)
-    </div>
-    <div class="checkline">
-      <input type="checkbox" id="sepaConsent" name="sepaConsent" required>
-      <label for="sepaConsent">Ich erteile das nachfolgende SEPA-Lastschriftmandat und ermächtige den Förderverein der Nordstadtkita Rinteln e.V., den von mir zu entrichtenden Jahresbeitrag jährlich bei Fälligkeit von meinem Konto mittels Lastschrift einzuziehen. Zugleich weise ich mein Kreditinstitut an, die vom Förderverein auf mein Konto gezogenen Lastschriften einzulösen.</label>
-    </div>
-    <div class="sepa-fields" id="sepaFields">
-      <div class="notice">Hinweis: Du kannst innerhalb von acht Wochen ab dem Belastungsdatum die Erstattung des belasteten Betrags verlangen. Es gelten dabei die mit deinem Kreditinstitut vereinbarten Bedingungen.</div>
-      <div class="grid" style="margin-top:14px">
-        <div class="field full"><label class="field-label" for="iban">IBAN <span class="required">*</span></label><input id="iban" name="iban" autocomplete="off" autocapitalize="characters" spellcheck="false" inputmode="text" placeholder="DE00 0000 0000 0000 0000 00" aria-describedby="ibanHint" required><p class="hint" id="ibanHint">Deine IBAN findest du beispielsweise auf deinem Kontoauszug oder im Onlinebanking.</p></div>
-        <div class="field"><label class="field-label" for="bic">BIC <span class="hint">(optional)</span></label><input id="bic" name="bic" autocomplete="off" autocapitalize="characters" spellcheck="false"></div>
-        <div class="field"><label class="field-label" for="bank">Kreditinstitut <span class="hint">(optional)</span></label><input id="bank" name="bank" autocomplete="off"></div>
-        <div class="field full"><label class="field-label" for="accountHolder">Kontoinhaber/in <span class="required">*</span></label><input id="accountHolder" name="accountHolder" autocomplete="name" required></div>
-      </div>
-      <div style="margin-top:15px">
-        <p class="hint signature-explanation">Mit dieser Unterschrift erteilst du das SEPA-Lastschriftmandat für den Einzug des Mitgliedsbeitrags. Sie ist zusätzlich zur Unterschrift unter dem Mitgliedsantrag erforderlich.</p>
-        <label class="field-label">Unterschrift Kontoinhaber/in <span class="required">*</span></label>
-        <div class="signature-wrap">
-          <div class="signature-top"><strong>Bitte hier unterschreiben</strong><button class="small-btn" type="button" data-clear="sepaSignature">Löschen</button></div>
-          <canvas class="signature-canvas" id="sepaSignature" aria-label="Unterschrift Kontoinhaber"></canvas>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="card">
-    <h2><svg class="section-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 16.5 10.8-10.8a2.1 2.1 0 0 1 3 3L7 19.5 3.5 20z"/><path d="m13.5 7.5 3 3"/></svg><span>Deine Erklärungen und Unterschriften</span></h2>
-    <p class="intro">Hier bestätigst du zwei voneinander unabhängige Erklärungen: deinen Antrag auf Mitgliedschaft und das SEPA-Lastschriftmandat. Deshalb benötigen wir deine Unterschrift an beiden Stellen.</p>
+  <section class="card" id="membershipSection">
+    <h2><svg class="section-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 16.5 10.8-10.8a2.1 2.1 0 0 1 3 3L7 19.5 3.5 20z"/><path d="m13.5 7.5 3 3"/></svg><span>Mitgliedsantrag</span></h2>
+    <p class="intro">Hiermit beantrage ich die Mitgliedschaft im Förderverein der Nordstadtkita Rinteln e.V. und bestätige die Richtigkeit meiner Angaben. Die Satzung erkenne ich in ihrer geltenden Fassung an.</p>
+    <p class="intro">Mit meiner Unterschrift bestätige ich den Mitgliedsantrag.</p>
     <div class="grid">
       <div class="field"><label class="field-label" for="place">Ort <span class="required">*</span></label><input id="place" name="place" autocomplete="address-level2" required></div>
       <div class="field"><label class="field-label" for="date">Datum <span class="required">*</span></label><input id="date" name="date" type="date" required></div>
     </div>
     <div style="margin-top:17px">
-      <div class="signature-reason">Mit deiner Unterschrift bestätigst du den Antrag auf Mitgliedschaft. Das SEPA-Lastschriftmandat hast du bereits im vorherigen Abschnitt separat unterschrieben.</div>
       <label class="field-label">Unterschrift Antragsteller/in <span class="required">*</span></label>
-      <div class="signature-wrap">
-        <div class="signature-top"><strong>Bitte hier unterschreiben</strong><button class="small-btn" type="button" data-clear="memberSignature">Löschen</button></div>
-        <canvas class="signature-canvas" id="memberSignature" aria-label="Unterschrift Antragsteller"></canvas>
+      <div class="signature-wrap"><div class="signature-top"><strong>Bitte hier unterschreiben</strong><button class="small-btn" type="button" data-clear="memberSignature">Löschen</button></div><canvas class="signature-canvas" id="memberSignature" aria-label="Unterschrift Antragsteller"></canvas></div>
+    </div>
+  </section>
+
+  <section class="card" id="sepaSection">
+    <h2><svg class="section-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M7 15h4"/></svg><span>SEPA-Lastschriftmandat</span></h2>
+    <p class="intro">Ich ermächtige den Förderverein der Nordstadtkita Rinteln e.V., den von mir zu entrichtenden Jahresbeitrag jährlich bei Fälligkeit von meinem Konto mittels Lastschrift einzuziehen. Zugleich weise ich mein Kreditinstitut an, die vom Förderverein der Nordstadtkita Rinteln e.V. auf mein Konto gezogenen Lastschriften einzulösen.</p>
+    <div class="notice">Hinweis: Du kannst innerhalb von acht Wochen ab dem Belastungsdatum die Erstattung des belasteten Betrags verlangen. Es gelten dabei die mit deinem Kreditinstitut vereinbarten Bedingungen.</div>
+    <div class="sepa-fields visible" id="sepaFields">
+      <div class="grid" style="margin-top:14px">
+        <div class="field full"><label class="field-label" for="accountHolder">Kontoinhaber/in <span class="required">*</span></label><input id="accountHolder" name="accountHolder" autocomplete="name" required></div>
+        <div class="field full"><label class="field-label" for="iban">IBAN <span class="required">*</span></label><input id="iban" name="iban" autocomplete="off" autocapitalize="characters" spellcheck="false" inputmode="text" placeholder="DE00 0000 0000 0000 0000 00" aria-describedby="ibanHint" required><p class="hint" id="ibanHint">Deine IBAN findest du beispielsweise auf deinem Kontoauszug oder im Onlinebanking.</p></div>
+        <div class="field"><label class="field-label" for="bic">BIC <span class="hint">(falls erforderlich)</span></label><input id="bic" name="bic" autocomplete="off" autocapitalize="characters" spellcheck="false"></div>
+        <div class="field"><label class="field-label" for="bank">Kreditinstitut <span class="hint">(optional)</span></label><input id="bank" name="bank" autocomplete="off"></div>
+        <div class="field full"><label class="field-label" for="alternateHolder">Abweichende/r Kontoinhaber/in <span class="hint">(optional)</span></label><input id="alternateHolder" name="alternateHolder" autocomplete="off"><p class="hint">Nur ausfüllen, wenn Kontoinhaber/in und Mitglied voneinander abweichen.</p></div>
       </div>
+      <div class="notice" style="margin-top:15px"><strong>Gläubiger-Identifikationsnummer:</strong> DE92ZZZ00001253396<br><strong>Mandatsreferenz:</strong> wird separat mitgeteilt.</div>
+      <p class="hint signature-explanation">Mit meiner Unterschrift bestätige ich das SEPA-Lastschriftmandat.</p>
+      <div class="grid">
+        <div class="field"><label class="field-label" for="sepaPlace">Ort <span class="required">*</span></label><input id="sepaPlace" name="sepaPlace" autocomplete="address-level2" required></div>
+        <div class="field"><label class="field-label" for="sepaDate">Datum <span class="required">*</span></label><input id="sepaDate" name="sepaDate" type="date" required></div>
+      </div>
+      <div style="margin-top:17px"><label class="field-label">Unterschrift Kontoinhaber/in <span class="required">*</span></label><div class="signature-wrap"><div class="signature-top"><strong>Bitte hier unterschreiben</strong><button class="small-btn" type="button" data-clear="sepaSignature">Löschen</button></div><canvas class="signature-canvas" id="sepaSignature" aria-label="Unterschrift Kontoinhaber"></canvas></div></div>
     </div>
   </section>
 
@@ -368,17 +356,22 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
   "use strict";
   const form = document.getElementById("membershipForm");
   const status = document.getElementById("status");
-  const sepaConsent = document.getElementById("sepaConsent");
   const sepaFields = document.getElementById("sepaFields");
   const ibanInput = document.getElementById("iban");
   const accountHolder = document.getElementById("accountHolder");
   const dateInput = document.getElementById("date");
+  const sepaDateInput = document.getElementById("sepaDate");
   const cityInput = document.getElementById("city");
   const placeInput = document.getElementById("place");
+  const sepaPlaceInput = document.getElementById("sepaPlace");
   const contributionInput = document.getElementById("contribution");
-  let placeManuallyEdited = false;
+  let placeManuallyEdited = false, sepaPlaceManuallyEdited = false;
   placeInput.addEventListener("input", () => { placeManuallyEdited = placeInput.value.trim() !== ""; });
-  cityInput.addEventListener("input", () => { if (!placeManuallyEdited) placeInput.value = cityInput.value; });
+  sepaPlaceInput.addEventListener("input", () => { sepaPlaceManuallyEdited = sepaPlaceInput.value.trim() !== ""; });
+  cityInput.addEventListener("input", () => {
+    if (!placeManuallyEdited) placeInput.value = cityInput.value;
+    if (!sepaPlaceManuallyEdited) sepaPlaceInput.value = cityInput.value;
+  });
   document.querySelectorAll("[data-amount]").forEach(button => {
     button.addEventListener("click", () => {
       contributionInput.value = button.dataset.amount;
@@ -390,7 +383,9 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
     document.querySelectorAll("[data-amount]").forEach(button => button.setAttribute("aria-pressed", String(Number(contributionInput.value) === Number(button.dataset.amount))));
   });
   const today = new Date();
-  dateInput.value = new Date(today.getTime() - today.getTimezoneOffset()*60000).toISOString().slice(0,10);
+  const todayLocal = new Date(today.getTime() - today.getTimezoneOffset()*60000).toISOString().slice(0,10);
+  dateInput.value = todayLocal;
+  sepaDateInput.value = todayLocal;
 
   const canvases = {};
   function setupCanvas(canvas) {
@@ -552,7 +547,7 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
 
   // Fortschrittsanzeige folgt dem zuletzt erreichten Formularabschnitt.
   const progressSections=[...document.querySelectorAll("form#membershipForm > .card")].slice(0,4);
-  const progressNames=["Persönliche Angaben","Mitgliedsbeitrag","SEPA-Lastschrift","Erklärungen"];
+  const progressNames=["Persönliche Angaben","Mitgliedsbeitrag","Mitgliedsantrag","SEPA-Lastschrift"];
   const progressBar=document.getElementById("progressBar");
   const progressLabel=document.getElementById("progressLabel");
   const progressItems=[...document.querySelectorAll(".progress-steps span")];
@@ -597,8 +592,9 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
       surname:value("surname"),givenName:value("givenName"),street:value("street"),postal:value("postal"),city:value("city"),email:value("email"),
       contribution:Number(value("contribution")).toLocaleString("de-DE",{minimumFractionDigits:2,maximumFractionDigits:2})+" €",
       payment:"SEPA-Lastschrift",
-      sepa:true,iban:value("iban").replace(/\s+/g,"").toUpperCase(),bic:value("bic"),bank:value("bank"),accountHolder:value("accountHolder"),
+      sepa:true,iban:value("iban").replace(/\s+/g,"").toUpperCase(),bic:value("bic"),bank:value("bank"),accountHolder:value("accountHolder"),alternateHolder:value("alternateHolder"),
       place:value("place"),date:new Date(value("date")+"T12:00:00").toLocaleDateString("de-DE"),
+      sepaPlace:value("sepaPlace"),sepaDate:new Date(value("sepaDate")+"T12:00:00").toLocaleDateString("de-DE"),
       memberSig:canvases.memberSignature.data(),sepaSig:canvases.sepaSignature.data()
     };
   }
@@ -642,21 +638,23 @@ button.secondary{min-height:48px;border-color:#d0dbd4}
     section("Persönliche Angaben");
     line("Name:",data.surname);line("Vorname:",data.givenName);line("Straße / Nr.:",data.street);line("PLZ / Ort:",data.postal+" "+data.city);line("E-Mail:",data.email);
     y+=2;section("Mitgliedsbeitrag");line("Jährlicher Beitrag:",data.contribution);line("Zahlungsart:",data.payment);
-    if(data.sepa){
-      y+=2;section("SEPA-Lastschriftmandat");
-      y=addWrapped(doc,"Gläubiger-Identifikationsnummer: DE92ZZZ00001253396",left,y,width,5);
-      y=addWrapped(doc,"Mandatsreferenz: wird separat mitgeteilt (Mitgliedsnummer)",left,y,width,5);
-      y+=2;y=addWrapped(doc,"Ich ermächtige den Förderverein der Nordstadtkita Rinteln e.V., den von mir zu entrichtenden Jahresbeitrag jährlich bei Fälligkeit von meinem Konto mittels Lastschrift einzuziehen. Zugleich weise ich mein Kreditinstitut an, die vom Verein auf mein Konto gezogenen Lastschriften einzulösen.",left,y,width,4.7);
-      y+=1;y=addWrapped(doc,"Hinweis: Du kannst innerhalb von acht Wochen ab dem Belastungsdatum die Erstattung des belasteten Betrags verlangen. Es gelten dabei die mit deinem Kreditinstitut vereinbarten Bedingungen.",left,y,width,4.7);
-      y+=2;line("IBAN:",data.iban);line("BIC:",data.bic);line("Kreditinstitut:",data.bank);line("Kontoinhaber/in:",data.accountHolder);
-      if(y>258){doc.addPage();y=18;}
-      doc.setFont("helvetica","bold");doc.text("Unterschrift Kontoinhaber/in:",left,y);y+=2;
-      if(data.sepaSig){doc.addImage(data.sepaSig,"PNG",left+60,y-5,65,17);}y+=16;
-    }
-    y+=2;section("Erklärungen und Unterschriften");line("Ort, Datum:",data.place+", "+data.date);
+    y+=2;section("Mitgliedsantrag");
+    y=addWrapped(doc,"Hiermit beantrage ich die Mitgliedschaft im Förderverein der Nordstadtkita Rinteln e.V. und bestätige die Richtigkeit meiner Angaben. Die Satzung erkenne ich in ihrer geltenden Fassung an.",left,y,width,4.7);
+    y+=1;y=addWrapped(doc,"Mit meiner Unterschrift bestätige ich den Mitgliedsantrag.",left,y,width,4.7);
+    line("Ort, Datum:",data.place+", "+data.date);
     if(y>258){doc.addPage();y=18;}
     doc.setFont("helvetica","bold");doc.text("Unterschrift Antragsteller/in:",left,y);y+=2;
     if(data.memberSig){doc.addImage(data.memberSig,"PNG",left+60,y-5,65,17);}y+=17;
+    y+=2;section("SEPA-Lastschriftmandat");
+    y=addWrapped(doc,"Ich ermächtige den Förderverein der Nordstadtkita Rinteln e.V., den von mir zu entrichtenden Jahresbeitrag jährlich bei Fälligkeit von meinem Konto mittels Lastschrift einzuziehen. Zugleich weise ich mein Kreditinstitut an, die vom Förderverein der Nordstadtkita Rinteln e.V. auf mein Konto gezogenen Lastschriften einzulösen.",left,y,width,4.7);
+    y+=1;y=addWrapped(doc,"Hinweis: Du kannst innerhalb von acht Wochen ab dem Belastungsdatum die Erstattung des belasteten Betrags verlangen. Es gelten dabei die mit deinem Kreditinstitut vereinbarten Bedingungen.",left,y,width,4.7);
+    y+=2;line("Kontoinhaber/in:",data.accountHolder);line("IBAN:",data.iban);line("BIC:",data.bic);line("Kreditinstitut:",data.bank);
+    if(data.alternateHolder)line("Abweichende/r Kontoinhaber/in:",data.alternateHolder);
+    y+=1;line("Gläubiger-ID:","DE92ZZZ00001253396");line("Mandatsreferenz:","wird separat mitgeteilt");
+    line("Ort, Datum:",data.sepaPlace+", "+data.sepaDate);
+    if(y>258){doc.addPage();y=18;}
+    doc.setFont("helvetica","bold");doc.text("Unterschrift Kontoinhaber/in:",left,y);y+=2;
+    if(data.sepaSig){doc.addImage(data.sepaSig,"PNG",left+60,y-5,65,17);}y+=17;
     doc.setFontSize(8);doc.setFont("helvetica","normal");doc.text("Förderverein der Nordstadtkita Rinteln e.V.",left,Math.min(y,285));
     return doc;
   }
